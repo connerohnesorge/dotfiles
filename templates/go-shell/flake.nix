@@ -87,9 +87,18 @@ nix fmt
           exec = rooted ''$EDITOR "$REPO_ROOT"/flake.nix'';
           description = "Edit flake.nix";
         };
-        gx = {
-          exec = rooted ''$EDITOR "$REPO_ROOT"/go.mod'';
-          description = "Edit go.mod";
+        lint = {
+          exec = ''
+            golangci-lint run
+          '';
+          description = "Run golangci-lint";
+        };
+        tests = {
+          exec = rooted ''
+            gotestsum --format short-verbose "$REPO_ROOT"/...
+          '';
+          description = "Run tests";
+          deps = [pkgs.gotestsum];
         };
       };
 
@@ -141,7 +150,6 @@ nix fmt
             pprof
             graphviz
             goreleaser
-            cobra-cli
           ]
           ++ builtins.attrValues scriptPackages;
       };
