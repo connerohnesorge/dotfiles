@@ -1,3 +1,3 @@
-module github.com/conneroisu/dotfiles/modules/programs/cmbd
+module github.com/connerohnesorge/dotfiles/modules/programs/cmbd
 
 go 1.24.3
