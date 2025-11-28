@@ -23,7 +23,7 @@ live reloading, and testing utilities for productive Go development.
 ## Usage
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#go-shell
+nix flake init -t github:connerohnesorge/dotfiles#go-shell
 
 # Enter development shell
 nix develop
@@ -162,7 +162,7 @@ nix fmt
           vendorHash = null;
           meta = with pkgs.lib; {
             description = "My Go project";
-            homepage = "https://github.com/conneroisu/my-go-project";
+            homepage = "https://github.com/connerohnesorge/my-go-project";
             license = licenses.asl20;
             maintainers = with maintainers; [connerohnesorge];
           };

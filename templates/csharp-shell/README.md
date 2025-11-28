@@ -14,7 +14,7 @@ A Nix flake template for C# development with .NET 8 SDK and `buildDotnetModule`.
 
 ```bash
 # Initialize in current directory
-nix flake init -t github:conneroisu/dotfiles#csharp-shell
+nix flake init -t github:connerohnesorge/dotfiles#csharp-shell
 
 # Enter development shell
 nix develop

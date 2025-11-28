@@ -46,7 +46,7 @@ A comprehensive C++ development environment with modern tooling for building hig
 
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#cpp-shell
+nix flake init -t github:connerohnesorge/dotfiles#cpp-shell
 
 # Enter development shell
 nix develop

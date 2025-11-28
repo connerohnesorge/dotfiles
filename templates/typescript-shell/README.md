@@ -37,7 +37,7 @@ A comprehensive TypeScript development environment with modern tooling for build
 
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#typescript-shell
+nix flake init -t github:connerohnesorge/dotfiles#typescript-shell
 
 # Enter development shell
 nix develop

@@ -30,7 +30,7 @@ language servers, and development tools for productive TypeScript development.
 ## Usage
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#typescript-shell
+nix flake init -t github:connerohnesorge/dotfiles#typescript-shell
 
 # Enter development shell
 nix develop
