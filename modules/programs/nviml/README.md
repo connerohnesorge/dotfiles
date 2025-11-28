@@ -110,4 +110,4 @@ nviml is optimized for speed and efficiency:
 
 ## Contributing
 
-This is part of the [Denix dotfiles framework](https://github.com/conneroisu/dotfiles). Contributions welcome!
+This is part of the [Denix dotfiles framework](https://github.com/connerohnesorge/dotfiles). Contributions welcome!

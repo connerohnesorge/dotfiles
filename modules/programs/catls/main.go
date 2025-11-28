@@ -1,5 +1,5 @@
 /*
-Copyright © 2025 Conner Ohnesorge <conneroisu@outlook.com>
+Copyright © 2025 Conner Ohnesorge <connerohnesorge@outlook.com>
 */
 package main
 
