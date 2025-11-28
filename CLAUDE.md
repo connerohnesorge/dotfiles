@@ -38,7 +38,7 @@ nixos-rebuild build --flake .
 
 Create development shells with:
 ```bash
-nix flake init -t github:conneroisu/dotfiles#<template-name>
+nix flake init -t github:connerohnesorge/dotfiles#<template-name>
 ```
 Available templates: devshell, rust-shell, go-shell, go-templ-shell, remix-js-shell, laravel-shell, phoenix-shell
 

@@ -182,11 +182,11 @@ From `CLAUDE.md`: "If you ever write tests, you must actually verify that they w
 - **hyprland**: `github:hyprwm/hyprland`
 
 ### Custom Flake Inputs
-- **zen-browser**: `github:conneroisu/zen-browser-flake`
-- **proton-authenticator**: `github:conneroisu/proton-authenticator-flake`
+- **zen-browser**: `github:connerohnesorge/zen-browser-flake`
+- **proton-authenticator**: `github:connerohnesorge/proton-authenticator-flake`
 - **conclaude**: `github:connix-io/conclaude`
-- **kiro-flake**: `github:conneroisu/kiro-flake`
-- **nordvpn**: `github:conneroisu/nordvpn-flake`
+- **kiro-flake**: `github:connerohnesorge/kiro-flake`
+- **nordvpn**: `github:connerohnesorge/nordvpn-flake`
 
 ### System Services
 - **NixOS-WSL**: `github:nix-community/NixOS-WSL/main` (Windows Subsystem for Linux)

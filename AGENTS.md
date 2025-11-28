@@ -77,7 +77,7 @@ dotfiles/
 - **Single Test**: `cd modules/programs/convert_img && python -m pytest tests/test_convert_img.py::TestClassName::test_method`
 - **Build Module**: `cd modules/programs/<program-name> && nix build`
 - **Rebuild System**: `darwin-rebuild switch --flake .` (macOS) or `sudo nixos-rebuild switch --flake .` (NixOS)
-- **Template Usage**: `nix flake init -t github:conneroisu/dotfiles#<template-name>`
+- **Template Usage**: `nix flake init -t github:connerohnesorge/dotfiles#<template-name>`
 
 ## Code Style Guidelines
 - **Nix**: Use alejandra formatting, prefer `let...in` blocks, use `delib.module` pattern for modules
