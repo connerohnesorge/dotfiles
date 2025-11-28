@@ -33,7 +33,7 @@ for productive Python development.
 ## Usage
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#python-shell
+nix flake init -t github:connerohnesorge/dotfiles#python-shell
 
 # Enter development shell
 nix develop

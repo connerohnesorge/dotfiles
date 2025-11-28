@@ -160,7 +160,6 @@ in
       security = {
         pam.services = {
           sddm.enableGnomeKeyring = true;
-          login.enableGnomeKeyring = true;
           gdm.enableGnomeKeyring = true;
         };
       };
@@ -176,6 +175,7 @@ in
         upower.enable = true;
         xserver = {
           enable = true;
+          desktopManager.gnome.enable = true;
         };
         displayManager.gdm = {
           enable = lib.mkDefault true;

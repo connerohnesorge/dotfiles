@@ -23,7 +23,7 @@ formatting utilities, and development scripts for productive Zig development.
 ## Usage
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#zig-shell
+nix flake init -t github:connerohnesorge/dotfiles#zig-shell
 
 # Enter development shell
 nix develop
@@ -174,7 +174,7 @@ nix fmt
           '';
           meta = with pkgs.lib; {
             description = "My Zig project";
-            homepage = "https://github.com/conneroisu/my-zig-project";
+            homepage = "https://github.com/connerohnesorge/my-zig-project";
             license = licenses.mit;
             maintainers = with maintainers; [connerohnesorge];
           };

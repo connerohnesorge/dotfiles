@@ -21,7 +21,6 @@ delib.host {
       inputs.nixos-hardware.nixosModules.dell-xps-15-9510
     ];
 
-    hardware.nvidia-container-toolkit.enable = true;
     boot = {
       initrd.availableKernelModules = [
         "xhci_pci"
