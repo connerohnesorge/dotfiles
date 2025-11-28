@@ -34,7 +34,7 @@ for productive C++ development.
 ## Usage
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#cpp-shell
+nix flake init -t github:connerohnesorge/dotfiles#cpp-shell
 
 # Enter development shell
 nix develop

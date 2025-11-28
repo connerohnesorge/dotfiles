@@ -31,7 +31,7 @@ high-performance Rust applications.
 ## Usage
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#rust-shell
+nix flake init -t github:connerohnesorge/dotfiles#rust-shell
 
 # Enter development shell
 nix develop

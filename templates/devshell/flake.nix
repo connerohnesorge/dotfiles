@@ -21,7 +21,7 @@ Nix flakes. Includes treefmt for code formatting and a basic shell structure.
 ## Usage
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#devshell
+nix flake init -t github:connerohnesorge/dotfiles#devshell
 
 # Enter development shell
 nix develop
