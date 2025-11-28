@@ -1,5 +1,5 @@
 # Dotfiles - Conner Ohnesorge
-[![.github/workflows/ci.yml](https://github.com/conneroisu/dotfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/conneroisu/dotfiles/actions/workflows/ci.yml)
+[![.github/workflows/ci.yml](https://github.com/connerohnesorge/dotfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/connerohnesorge/dotfiles/actions/workflows/ci.yml)
 
 ## Introduction
 
@@ -19,7 +19,7 @@ A NixOS/Home Manager dotfiles repository using the **Denix** framework for modul
 ## Installation
 
 ```bash
-git clone --recurse-submodules -j8 https://github.com/conneroisu/dotfiles.git
+git clone --recurse-submodules -j8 https://github.com/connerohnesorge/dotfiles.git
 cd dotfiles
 
 # MACOS
@@ -92,15 +92,15 @@ This repository provides ready-to-use flake templates for various programming la
 
 ```bash
 # General development shell
-nix flake init -t github:conneroisu/dotfiles#devshell
+nix flake init -t github:connerohnesorge/dotfiles#devshell
 
 # Language-specific templates
-nix flake init -t github:conneroisu/dotfiles#rust-shell      # Rust development
-nix flake init -t github:conneroisu/dotfiles#go-shell        # Go development  
-nix flake init -t github:conneroisu/dotfiles#go-templ-shell  # Go + Templ
-nix flake init -t github:conneroisu/dotfiles#remix-js-shell  # Remix.js development
-nix flake init -t github:conneroisu/dotfiles#laravel-shell   # Laravel development
-nix flake init -t github:conneroisu/dotfiles#phoenix-shell   # Elixir Phoenix development
+nix flake init -t github:connerohnesorge/dotfiles#rust-shell      # Rust development
+nix flake init -t github:connerohnesorge/dotfiles#go-shell        # Go development  
+nix flake init -t github:connerohnesorge/dotfiles#go-templ-shell  # Go + Templ
+nix flake init -t github:connerohnesorge/dotfiles#remix-js-shell  # Remix.js development
+nix flake init -t github:connerohnesorge/dotfiles#laravel-shell   # Laravel development
+nix flake init -t github:connerohnesorge/dotfiles#phoenix-shell   # Elixir Phoenix development
 ```
 
 ### Template Features
@@ -116,7 +116,7 @@ Templates can be extended with package builds. Example for Go projects:
 
 ```nix
 {
-  inputs.dotfiles.url = "github:conneroisu/dotfiles";
+  inputs.dotfiles.url = "github:connerohnesorge/dotfiles";
   outputs = {
     self,
     nixpkgs,
@@ -134,7 +134,7 @@ Templates can be extended with package builds. Example for Go projects:
         description = "My Go project";
         homepage = "https://github.com/my-go-project";
         license = licenses.mit;
-        maintainers = with maintainers; [conneroisu];
+        maintainers = with maintainers; [connerohnesorge];
       };
     };
   };
