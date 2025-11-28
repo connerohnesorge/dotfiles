@@ -23,6 +23,6 @@ delib.module {
     userfullname = readOnly (strOption "Conner Ohnesorge");
 
     # Primary email address (used for Git commits, SSH keys, and notifications)
-    useremail = readOnly (strOption "conneroisu@outlook.com");
+    useremail = readOnly (strOption "connerohnesorge@outlook.com");
   };
 }
