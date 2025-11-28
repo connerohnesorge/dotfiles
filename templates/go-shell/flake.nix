@@ -23,7 +23,7 @@ live reloading, and testing utilities for productive Go development.
 ## Usage
 ```bash
 # Create new project from template
-nix flake init -t github:conneroisu/dotfiles#go-shell
+nix flake init -t github:connerohnesorge/dotfiles#go-shell
 
 # Enter development shell
 nix develop
@@ -87,9 +87,18 @@ nix fmt
           exec = rooted ''$EDITOR "$REPO_ROOT"/flake.nix'';
           description = "Edit flake.nix";
         };
-        gx = {
-          exec = rooted ''$EDITOR "$REPO_ROOT"/go.mod'';
-          description = "Edit go.mod";
+        lint = {
+          exec = ''
+            golangci-lint run
+          '';
+          description = "Run golangci-lint";
+        };
+        tests = {
+          exec = rooted ''
+            gotestsum --format short-verbose "$REPO_ROOT"/...
+          '';
+          description = "Run tests";
+          deps = [pkgs.gotestsum];
         };
       };
 
@@ -141,7 +150,6 @@ nix fmt
             pprof
             graphviz
             goreleaser
-            cobra-cli
           ]
           ++ builtins.attrValues scriptPackages;
       };
@@ -154,7 +162,7 @@ nix fmt
           vendorHash = null;
           meta = with pkgs.lib; {
             description = "My Go project";
-            homepage = "https://github.com/conneroisu/my-go-project";
+            homepage = "https://github.com/connerohnesorge/my-go-project";
             license = licenses.asl20;
             maintainers = with maintainers; [connerohnesorge];
           };
