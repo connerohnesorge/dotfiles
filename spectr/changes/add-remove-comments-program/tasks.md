@@ -1,54 +1,65 @@
-## 1. Create Program Directory Structure
+# Tasks: strip-nix-comments Implementation
 
-- [ ] 1.1 Create `modules/programs/remove-comments/` directory
-- [ ] 1.2 Create `default.nix` with Go package derivation
-- [ ] 1.3 Create `main.go` with all Go comment stripping logic
-- [ ] 1.4 Create auxiliary Go helper functions (directive filtering, normalization)
+## 1. Create Program Directory and Derivation
 
-## 2. Implement Go Comment Stripping
+- [ ] 1.1 Create `modules/programs/strip-nix-comments/` directory
+- [ ] 1.2 Create `default.nix` with Nix derivation using `stdenv.mkDerivation`
+- [ ] 1.3 Configure `buildInputs` with `nix.dev` and `boost`
+- [ ] 1.4 Configure `nativeBuildInputs` with `pkg-config`
+- [ ] 1.5 Set up pkg-config invocation for libnix linking (`-lnixexpr -lnixstore -lnixutil -lnixmain`)
 
-- [ ] 2.1 Implement `stripCommentsInFile()` using Go AST parsing
-- [ ] 2.2 Implement `filterDirectiveCommentGroups()` to preserve build directives
-- [ ] 2.3 Implement regex patterns for `//go:*`, `//+build`, `#cgo`, `#include`
-- [ ] 2.4 Add support for all flag types: `-root`, `-write`, `-remove-directives`, `-skip-tests`, `-include-vendor`, `-quiet`
-- [ ] 2.5 Implement recursive `filepath.WalkDir()` scanning
+## 2. Implement C++ Source
 
-## 3. Create Multi-Language Support Infrastructure
+- [ ] 2.1 Create `main.cpp` with libnix includes:
+  ```cpp
+  #include <nix/eval.hh>
+  #include <nix/store-api.hh>
+  ```
+- [ ] 2.2 Implement stdin reading using `std::stringstream` buffer
+- [ ] 2.3 Create dummy store with `openStore("dummy://")`
+- [ ] 2.4 Initialize `EvalState` with empty search path
+- [ ] 2.5 Parse input with `state.parseExprFromString(input, "stdin")`
+- [ ] 2.6 Output result with `expr->show(std::cout)`
+- [ ] 2.7 Implement try/catch for `nix::Error` with stderr output and exit code 1
 
-- [ ] 3.1 Create wrapper script `remove-comments` that dispatches to language-specific implementations
-- [ ] 3.2 Implement Python version (tokenize-based) in `remove_comments.py`
-- [ ] 3.3 Implement Rust version (state machine) in `remove_comments.rs` or as pre-built binary
-- [ ] 3.4 Implement TypeScript/TSX version in `remove_comments.ts`
+## 3. Nix Module Integration
 
-## 4. Build and Package Integration
+- [ ] 3.1 Create delib module wrapper following cmbd/catls patterns
+- [ ] 3.2 Define `singleEnableOption false` for optional enablement
+- [ ] 3.3 Add to `nixos.ifEnabled.environment.systemPackages`
+- [ ] 3.4 Add to `darwin.ifEnabled.environment.systemPackages`
+- [ ] 3.5 Verify module follows Denix naming: `programs.strip-nix-comments`
 
-- [ ] 4.1 Ensure `default.nix` properly builds Go binary
-- [ ] 4.2 Create wrapper scripts for Python, Rust, TypeScript implementations
-- [ ] 4.3 Package all implementations into single nixpkgs-compatible derivation
-- [ ] 4.4 Verify cross-platform (nixos, darwin, home-manager) compatibility
+## 4. Build and Platform Testing
 
-## 5. Module Discovery and Integration
+- [ ] 4.1 Test build on NixOS: `cd modules/programs/strip-nix-comments && nix build`
+- [ ] 4.2 Verify linking succeeds (no undefined symbols)
+- [ ] 4.3 Test basic execution: `echo '{ x = 1; /* comment */ }' | ./result/bin/strip-nix-comments`
+- [ ] 4.4 Test Darwin build compatibility (if Darwin host available)
+- [ ] 4.5 Verify pkg-config finds correct nix library version
 
-- [ ] 5.1 Create `modules/config/` entry or update auto-discovery if needed
-- [ ] 5.2 Ensure `remove-comments` module follows Denix patterns
-- [ ] 5.3 Verify module is discovered by flake auto-discovery
+## 5. Functional Testing
 
-## 6. Testing and Validation
+- [ ] 5.1 Test line comment removal: `{ x = 1; # comment }`
+- [ ] 5.2 Test block comment removal: `{ x = 1; /* block */ }`
+- [ ] 5.3 Test nested/complex comments: `/* outer /* inner */ still comment */`
+- [ ] 5.4 Test string preservation: `{ x = "# not a comment"; }`
+- [ ] 5.5 Test multiline string preservation: `{ x = '' # also not a comment ''; }`
+- [ ] 5.6 Test parse error handling: invalid syntax should exit 1 with message
+- [ ] 5.7 Test empty input handling
+- [ ] 5.8 Test large file handling (typical flake.nix size)
 
-- [ ] 6.1 Test Go implementation on .go files with build directives
-- [ ] 6.2 Test Python implementation on .py files with shebangs
-- [ ] 6.3 Test Rust implementation on .rs files with raw strings
-- [ ] 6.4 Test TypeScript implementation on .tsx files with JSX comments
-- [ ] 6.5 Verify dry-run mode doesn't modify files
-- [ ] 6.6 Verify `-write` flag correctly persists changes
-- [ ] 6.7 Test directory scanning with skip patterns
-- [ ] 6.8 Test with vendor/ and .direnv exclusions
-- [ ] 6.9 Verify quiet mode suppresses per-file logs
+## 6. Integration Testing
 
-## 7. Documentation and Cleanup
+- [ ] 6.1 Process real nix file from this repo: `strip-nix-comments < flake.nix`
+- [ ] 6.2 Verify output parses correctly: `strip-nix-comments < flake.nix | nix-instantiate --parse -`
+- [ ] 6.3 Test pipeline usage: `cat file.nix | strip-nix-comments | wc -l`
+- [ ] 6.4 Test with modules that have extensive comments
 
-- [ ] 7.1 Add inline documentation to main implementations
-- [ ] 7.2 Test `remove-comments --help` output
-- [ ] 7.3 Verify no breaking changes to existing modules/features
-- [ ] 7.4 Run `nix develop -c lint` to check for style issues
-- [ ] 7.5 Run `nix fmt` to format code
+## 7. Validation and Finalization
+
+- [ ] 7.1 Run `nix develop -c lint` for static analysis
+- [ ] 7.2 Run `nix fmt` to format nix files
+- [ ] 7.3 Verify module is discovered by flake auto-discovery
+- [ ] 7.4 Test full system rebuild with module enabled
+- [ ] 7.5 Confirm program appears in PATH after activation

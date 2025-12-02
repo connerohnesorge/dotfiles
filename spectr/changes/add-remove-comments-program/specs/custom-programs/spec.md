@@ -1,70 +1,54 @@
 ## ADDED Requirements
 
-### Requirement: Remove Comments Program
-The system SHALL provide a `remove-comments` utility that strips comments and docstrings from source code across multiple languages (Go, Python, Rust, TypeScript/TSX) while preserving build-critical directives and operating in dry-run mode by default.
+### Requirement: Strip Nix Comments Program
+The system SHALL provide a `strip-nix-comments` utility that removes all comments from Nix source files by parsing them with libnix and re-emitting the AST, which naturally excludes comments.
 
-#### Scenario: Go file comment stripping
-- **WHEN** user runs `remove-comments` on a Go source file with ordinary comments
-- **THEN** comments are removed but build directives (`//go:build`, `//go:generate`, etc.) and cgo preambles (`#cgo`, `#include`) are preserved
+#### Scenario: Line comment removal
+- **WHEN** user pipes Nix code containing line comments (`# comment`) to `strip-nix-comments`
+- **THEN** the output contains the same Nix expression with all line comments removed
 
-#### Scenario: Python docstring removal
-- **WHEN** user runs `remove-comments` on a Python file with docstrings and comments
-- **THEN** docstrings and comments are removed but shebangs (`#!/usr/bin/env python3`) are preserved
+#### Scenario: Block comment removal
+- **WHEN** user pipes Nix code containing block comments (`/* comment */`) to `strip-nix-comments`
+- **THEN** the output contains the same Nix expression with all block comments removed
 
-#### Scenario: Rust comment stripping
-- **WHEN** user runs `remove-comments` on Rust source with block and line comments
-- **THEN** comments are removed while preserving raw string literals and byte strings intact
+#### Scenario: String literal preservation
+- **WHEN** user pipes Nix code containing strings with comment-like characters (`"# not a comment"` or `'' /* also not */ ''`)
+- **THEN** the string contents are preserved exactly, not treated as comments
 
-#### Scenario: TypeScript/TSX comment removal
-- **WHEN** user runs `remove-comments` on a `.tsx` file with JS/TS comments and JSX comment expressions
-- **THEN** all comment styles are removed including JSX comment blocks (`{/* ... */}`) without leaving artifacts
+#### Scenario: Parse error handling
+- **WHEN** user pipes syntactically invalid Nix code to `strip-nix-comments`
+- **THEN** the program exits with code 1 and outputs an error message to stderr
 
-#### Scenario: Dry-run mode (default behavior)
-- **WHEN** user runs `remove-comments [path]` without the `-write` flag
-- **THEN** the program outputs what would be changed but does not modify files
+#### Scenario: Canonical formatting output
+- **WHEN** user pipes valid Nix code to `strip-nix-comments`
+- **THEN** the output is valid Nix code in canonical (pretty-printed) format that can be parsed by `nix-instantiate`
 
-#### Scenario: Write mode activation
-- **WHEN** user runs `remove-comments -write [path]`
-- **THEN** the program writes changes back to files with original permissions preserved
-
-#### Scenario: Recursive directory scanning
-- **WHEN** user runs `remove-comments` on a directory
-- **THEN** the program recursively finds and processes all supported language files while skipping `.direnv` and optionally `vendor/` directories
-
-#### Scenario: Build directive preservation (optional)
-- **WHEN** user runs `remove-comments -remove-directives [path]` on Go files
-- **THEN** build directives, cgo preambles, and go:* directives are also removed (dangerous; may break builds)
-
-#### Scenario: Test file filtering (optional)
-- **WHEN** user runs `remove-comments -skip-tests [path]`
-- **THEN** files matching `*_test.go`, `*_test.py`, `*_test.rs`, `*.test.tsx` are skipped
-
-#### Scenario: Quiet mode
-- **WHEN** user runs `remove-comments -quiet [path]`
-- **THEN** per-file logging is suppressed; only errors are printed
+#### Scenario: stdin/stdout filter pattern
+- **WHEN** user runs `strip-nix-comments` without arguments
+- **THEN** the program reads from stdin and writes to stdout, enabling use in shell pipelines
 
 ### Requirement: Cross-Platform Availability
-The system SHALL provide the `remove-comments` program as a deployable system package on NixOS, macOS (darwin), and Home Manager environments through automatic module discovery.
+The system SHALL provide the `strip-nix-comments` program as a deployable system package on NixOS and macOS (darwin) environments through automatic Denix module discovery.
 
 #### Scenario: NixOS availability
-- **WHEN** `remove-comments` module is discovered by Denix
+- **WHEN** `strip-nix-comments` module is discovered by Denix
 - **THEN** the program is available in `environment.systemPackages` on NixOS hosts
 
 #### Scenario: Darwin availability
-- **WHEN** `remove-comments` module is discovered by Denix
+- **WHEN** `strip-nix-comments` module is discovered by Denix
 - **THEN** the program is available in `environment.systemPackages` on macOS hosts via nix-darwin
 
-#### Scenario: Home Manager availability
-- **WHEN** `remove-comments` module is discovered by Denix
-- **THEN** the program is available in `home.packages` on Home Manager installations
+### Requirement: Native C++ Implementation with libnix
+The system SHALL implement the comment stripper in C++ using the official libnix library to ensure parsing correctness.
 
-### Requirement: Default Behavior Safety
-The system SHALL implement sensible defaults that prioritize safety and non-destructive operation.
+#### Scenario: Uses official Nix parser
+- **WHEN** `strip-nix-comments` parses input
+- **THEN** it uses `nix::EvalState::parseExprFromString()` from libnix, the same parser used by `nix-instantiate`
 
-#### Scenario: Dry-run prevents accidental modification
-- **WHEN** user runs `remove-comments [path]`
-- **THEN** the program operates in dry-run mode by default, requiring explicit `-write` flag to modify files
+#### Scenario: AST-based comment removal
+- **WHEN** `strip-nix-comments` processes Nix code
+- **THEN** comments are removed because the Nix AST does not preserve them, and `Expr::show()` reconstructs only semantic content
 
-#### Scenario: Directive preservation protects builds
-- **WHEN** user runs standard `remove-comments -write [path]` on Go files
-- **THEN** build directives and cgo preambles remain untouched unless `-remove-directives` is explicitly provided
+#### Scenario: Minimal store initialization
+- **WHEN** `strip-nix-comments` initializes libnix
+- **THEN** it uses a `dummy://` store to avoid filesystem access, since parsing does not require store operations
