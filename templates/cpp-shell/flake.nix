@@ -179,7 +179,7 @@ nix fmt
             gitflow
             pre-commit
 
-                # Cross-platform support
+            # Cross-platform support
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
             # Linux-specific tools

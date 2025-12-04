@@ -127,20 +127,20 @@ nix fmt
       #   };
       # });
 
-
       devShells.default = pkgs.mkShell {
         name = "dev";
         # Available packages on https://search.nixos.org/packages
-        buildInputs = with pkgs; [
-          alejandra # Nix
-          nixd
-          statix
-          deadnix
-          just
-          rust-bin.stable.latest.default
-          rust-bin.stable.latest.rust-analyzer
-        ]
-        ++ builtins.attrValues scriptPackages;
+        buildInputs = with pkgs;
+          [
+            alejandra # Nix
+            nixd
+            statix
+            deadnix
+            just
+            rust-bin.stable.latest.default
+            rust-bin.stable.latest.rust-analyzer
+          ]
+          ++ builtins.attrValues scriptPackages;
         shellHook = ''
           echo "Welcome to the rust devshell!"
         '';

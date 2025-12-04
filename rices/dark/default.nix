@@ -106,8 +106,7 @@ delib.rice {
     else {
       stylix = {
         enable = true;
-        base16Scheme =
-          "${pkgs.base16-schemes}/share/themes/tokyodark.yaml";
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyodark.yaml";
         image = ./../../assets/klaus-desktop.jpeg;
       };
       stylix = {
