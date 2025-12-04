@@ -1,0 +1,153 @@
+#!/usr/bin/env bash
+# cf - Interactive fuzzy directory navigator
+#
+# Description:
+#   Provides an interactive fuzzy directory selection interface with preview
+#   using fzf. Changes to the selected directory upon confirmation.
+#
+# Usage:
+#   cf [directory]
+#
+# Features:
+#   - Fuzzy directory search with fzf
+#   - Directory preview with ls
+#   - Graceful cancellation handling
+#   - Works in current directory or specified directory
+#   - Shows hidden directories (excluding .git)
+#
+# Dependencies:
+#   - fzf: Fuzzy finder
+#   - fd: Fast directory finder
+#   - coreutils: For ls and cd
+
+set -euo pipefail
+
+# Color codes for output
+readonly RED='\033[0;31m'
+readonly GREEN='\033[0;32m'
+readonly YELLOW='\033[1;33m'
+readonly NC='\033[0m' # No Color
+
+# Function to print error messages
+error() {
+    echo -e "${RED}Error:${NC} $*" >&2
+}
+
+# Function to print info messages
+info() {
+    echo -e "${GREEN}Info:${NC} $*" >&2
+}
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function to validate dependencies
+check_dependencies() {
+    local missing_deps=()
+
+    for cmd in fzf fd ls; do
+        if ! command_exists "$cmd"; then
+            missing_deps+=("$cmd")
+        fi
+    done
+
+    if [ ${#missing_deps[@]} -ne 0 ]; then
+        error "Missing required dependencies: ${missing_deps[*]}"
+        error "These should be provided by Nix wrapper, but are not in PATH"
+        exit 1
+    fi
+}
+
+# Function to display help
+show_help() {
+    cat << EOF
+cf - Interactive fuzzy directory navigator
+
+Usage:
+    cf [directory]
+
+Description:
+    Opens an interactive fuzzy directory finder with directory preview.
+    Select a directory to change to it. Press ESC or Ctrl-C to cancel.
+
+Arguments:
+    directory    Optional directory to search (defaults to current directory)
+
+Key Bindings:
+    Enter        Change to selected directory
+    ESC/Ctrl-C   Exit without changing directory
+    Up/Down      Navigate through directories
+    Ctrl-U/D     Scroll preview window
+    Ctrl-/       Toggle preview window
+
+Examples:
+    cf                      # Search current directory
+    cf ~/projects           # Search specific directory
+    cf --help              # Show this help
+
+Dependencies:
+    fzf     Fuzzy finder for directory selection
+    fd      Fast directory finder
+    ls      Directory preview (coreutils)
+EOF
+}
+
+# Main function
+main() {
+    # Check for help flag
+    if [ $# -gt 0 ] && { [ "$1" = "--help" ] || [ "$1" = "-h" ]; }; then
+        show_help
+        exit 0
+    fi
+
+    # Validate dependencies
+    check_dependencies
+
+    # Determine search directory
+    local search_dir="${1:-.}"
+
+    # Validate directory exists
+    if [ ! -d "$search_dir" ]; then
+        error "Directory does not exist: $search_dir"
+        exit 1
+    fi
+
+    # Change to search directory
+    cd "$search_dir" || {
+        error "Cannot access directory: $search_dir"
+        exit 1
+    }
+
+    # Run fzf with ls preview
+    local selected_dir
+    selected_dir=$(fd --type d --hidden --exclude .git \
+        | fzf --preview 'ls --color {}' \
+              --preview-window=right:60%:wrap \
+              --height=100% \
+              --border \
+              --reverse \
+              --prompt='Select directory: ' \
+              --header='Enter=cd | ESC=cancel | Ctrl-/=toggle preview' \
+              --bind='ctrl-/:toggle-preview' \
+              --color='header:italic:underline')
+
+    # Check if a directory was selected
+    if [ -z "${selected_dir:-}" ]; then
+        info "No directory selected, exiting gracefully"
+        exit 0
+    fi
+
+    # Verify directory exists before changing
+    if [ ! -d "$selected_dir" ]; then
+        error "Selected directory does not exist: $selected_dir"
+        exit 1
+    fi
+
+    # Output the selected directory for the shell to cd into
+    echo "$selected_dir"
+}
+
+# Run main function
+main "$@"

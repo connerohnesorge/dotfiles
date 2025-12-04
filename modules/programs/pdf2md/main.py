@@ -9,7 +9,7 @@ from PIL import Image
 from desktop_notifier import DesktopNotifier
 from pathlib import Path
 
-PROMPT = '<image>\n<|grounding|>Convert the document to obsidian markdown.'
+PROMPT = "<image>\n<|grounding|>Convert the document to obsidian markdown."
 API_KEY_KEY = "OCR_API_KEY"
 API_ENDPOINT_KEY = "OCR_API_ENDPOINT"
 
@@ -26,16 +26,17 @@ def pdf_to_images(
         image_format: format of the output images
 
     Returns:
-        
+
     """
     import fitz
+
     images = []
-    
+
     pdf_document = fitz.open(pdf_path)
-    
+
     zoom = dpi / 72.0
     matrix = fitz.Matrix(zoom, zoom)
-    
+
     for page_num in range(pdf_document.page_count):
         page = pdf_document[page_num]
         pixmap = page.get_pixmap(matrix=matrix, alpha=False)
@@ -43,23 +44,20 @@ def pdf_to_images(
         img_data = pixmap.tobytes("png")
         img = Image.open(io.BytesIO(img_data))
         images.append(img)
-    
+
     pdf_document.close()
     return images
 
 
-def img_to_pdf(
-    pil_images: list[Image],
-    output_path: str
-):
+def img_to_pdf(pil_images: list[Image], output_path: str):
     if not pil_images:
         return
     image_bytes_list = []
     for img in pil_images:
-        if img.mode != 'RGB':
-            img = img.convert('RGB')
+        if img.mode != "RGB":
+            img = img.convert("RGB")
         img_buffer = io.BytesIO()
-        img.save(img_buffer, format='JPEG', quality=95)
+        img.save(img_buffer, format="JPEG", quality=95)
         img_bytes = img_buffer.getvalue()
         image_bytes_list.append(img_bytes)
     try:
@@ -98,7 +96,11 @@ def get_env(key: str) -> str:
         value of the environment variable
     """
     try:
-        result = next(line.split("=", 1)[1].strip() for line in open(os.path.expanduser("~/dotfiles/.env")) if line.startswith(f"{key}="))
+        result = next(
+            line.split("=", 1)[1].strip()
+            for line in open(os.path.expanduser("~/dotfiles/.env"))
+            if line.startswith(f"{key}=")
+        )
     except StopIteration:
         raise ValueError(f"Environment variable {key} not found")
     except Exception as e:
@@ -125,33 +127,23 @@ async def img_to_md(
     from openai import OpenAI
 
     client = OpenAI(
-        api_key=get_env(API_KEY_KEY),
-        base_url=get_env(API_ENDPOINT_KEY),
-        timeout=3600
+        api_key=get_env(API_KEY_KEY), base_url=get_env(API_ENDPOINT_KEY), timeout=3600
     )
 
     image_name = str(uuid.uuid4()) + ".png"
-    img.save(image_name, format='PNG')
-    image_data = open(image_name, 'rb').read()
-    
-    base64_string = base64.b64encode(image_data).decode('utf-8')
+    img.save(image_name, format="PNG")
+    image_data = open(image_name, "rb").read()
+
+    base64_string = base64.b64encode(image_data).decode("utf-8")
     image_data_url = f"data:image/png;base64,{base64_string}"
 
     messages = [
         {
             "role": "user",
             "content": [
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": image_data_url
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": PROMPT
-                }
-            ]
+                {"type": "image_url", "image_url": {"url": image_data_url}},
+                {"type": "text", "text": PROMPT},
+            ],
         }
     ]
 
@@ -174,18 +166,18 @@ async def img_to_md(
 
 
 def re_match(text):
-    pattern = r'(<\|ref\|>(.*?)<\|/ref\|><\|det\|>(.*?)<\|/det\|>)'
+    pattern = r"(<\|ref\|>(.*?)<\|/ref\|><\|det\|>(.*?)<\|/det\|>)"
     matches = re.findall(pattern, text, re.DOTALL)
-
 
     mathes_image = []
     mathes_other = []
     for a_match in matches:
-        if '<|ref|>image<|/ref|>' in a_match[0]:
+        if "<|ref|>image<|/ref|>" in a_match[0]:
             mathes_image.append(a_match[0])
         else:
             mathes_other.append(a_match[0])
     return matches, mathes_image, mathes_other
+
 
 def extract_coordinates_and_label(ref_text: str, image_width: int, image_height: int):
     try:
@@ -196,7 +188,6 @@ def extract_coordinates_and_label(ref_text: str, image_width: int, image_height:
         return None
 
     return (label_type, cor_list)
-
 
 
 async def main():
@@ -213,9 +204,8 @@ async def main():
     for image in images:
         content = await img_to_md(image)
         matches, mathes_image, mathes_other = re_match(content)
-        
-        markdown.append(content)
 
+        markdown.append(content)
 
     final_markdown = ""
     for i, md in enumerate(markdown):
@@ -224,8 +214,9 @@ async def main():
         final_markdown += f"\n<!-- Page {i+1} --->\n"
         final_markdown += md
         final_markdown += "\n\n"
-        
+
     await send_notification(file_path.with_suffix(".md"))
+
 
 if __name__ == "__main__":
     asyncio.run(main())
