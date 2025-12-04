@@ -7,7 +7,14 @@
 stop:
   # Structured command format with optional custom error messages
   # Each command can have its own error message, and control output display
-  commands: []
+  commands:
+    - run: "git add ."
+      showStdout: true
+      message: "Git add failed - please fix errors before continuing"
+    - run: "nix flake check"
+      showStdout: false
+      showStderr: true
+      message: "Nix flake check failed - please fix errors before continuing"
   # Examples:
   # commands:
   #   - run: "echo 'Starting build...'"
@@ -49,8 +56,8 @@ preToolUse:
   # By default, conclaude's own config files are protected to prevent the AI
   # from modifying guardrail settings - this is a security best practice
   uneditableFiles:
-    - ".conclaude.yml"   # Protect conclaude config from AI modification
-    - ".conclaude.yaml"  # Alternative config extension
+    - ".conclaude.yml" # Protect conclaude config from AI modification
+    - ".conclaude.yaml" # Alternative config extension
   # Additional examples:
   # uneditableFiles:
   #   - "./package.json"      # specific file

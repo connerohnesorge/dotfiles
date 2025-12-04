@@ -32,6 +32,9 @@ in
           xlaude.enable = true;
           zlaude.enable = true;
           klaude.enable = true;
+          cldk.enable = true;
+          cldo.enable = true;
+          clds.enable = true;
           ghostty.enable = true;
           dx.enable = true;
           convert_img.enable = true;

@@ -156,11 +156,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1764279059,
-        "narHash": "sha256-XwWQ7Kjv8CBOzctgtApqKzYe991ZJ/bKy0i29XEgy4I=",
+        "lastModified": 1764460165,
+        "narHash": "sha256-1whbA/RMaMM370q7SNDdSWY54aObn7v2zOjVqZCocoI=",
         "owner": "connix-io",
         "repo": "conclaude",
-        "rev": "80a3491ece4b6c15733d9daa859ff102daf479be",
+        "rev": "167bd200cc009734b77faaf49540a7f5a735aec0",
         "type": "github"
       },
       "original": {
@@ -1835,15 +1835,16 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1764280081,
-        "narHash": "sha256-Mv6Yos2pA/DNI7/4o8Zny9HNpT2rIgVSr1SvzZ6EUSo=",
+        "lastModified": 1764708356,
+        "narHash": "sha256-yBfUoUWhOJTyivxk1d5sAT3iUnWxaH8k8JfWkeVGO0o=",
         "owner": "connerohnesorge",
         "repo": "spectr",
-        "rev": "272da75ecb987534ebd3efb6947a6946910544a3",
+        "rev": "f76c63103dbce38cbd45aff9629dddcbc3a3ab33",
         "type": "github"
       },
       "original": {
         "owner": "connerohnesorge",
+        "ref": "f76c63103dbce38cbd45aff9629dddcbc3a3ab33",
         "repo": "spectr",
         "type": "github"
       }
