@@ -46,8 +46,14 @@ source <(carapace chmod zsh)
 
 # cfi is find all ignoring .git
 alias cfi='cd $(find . -type d -path "./.git" -prune -o -type d -not -path "*/\.*" -print | fzf --reverse --preview "ls --color {}")'
-# cf is find all
-alias cf='cd $(fd --type d --hidden --exclude .git | fzf --reverse --preview "ls --color {}")'
+# cf is find all - shell function wrapper for cf program
+cf() {
+    local dir
+    dir=$(command cf "$@")
+    if [ -n "$dir" ]; then
+        cd "$dir"
+    fi
+}
 alias git-reset='git checkout main && git pull'
 
 # nvimfi is find all files ignoring .git

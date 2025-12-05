@@ -160,7 +160,7 @@ nix fmt
           pname = "my-zig-project";
           version = "0.0.1";
           src = self;
-          nativeBuildInputs = [ pkgs.zigpkgs.master ];
+          nativeBuildInputs = [pkgs.zigpkgs.master];
           buildPhase = ''
             zig build
           '';
