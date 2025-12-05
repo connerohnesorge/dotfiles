@@ -37,6 +37,7 @@ in
           clds.enable = true;
           ghostty.enable = true;
           dx.enable = true;
+          cf.enable = true;
           convert_img.enable = true;
           catls.enable = true;
           cmbd.enable = true;
