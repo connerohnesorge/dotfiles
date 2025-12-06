@@ -59,7 +59,6 @@ alias git-reset='git checkout main && git pull'
 # nvimfi is find all files ignoring .git
 alias nvimfi='nvim "$(find . -type f -path "./.git" -prune -o -type f -not -path "*/\.*" -print | fzf --preview "bat --color=always {}")"'
 
-alias latest='git add . && git commit -m "latest" && git push'
 alias nxi='nix'
 alias wtr='git worktree remove'
 alias wtl='git worktree list'
