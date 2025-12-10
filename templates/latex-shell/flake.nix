@@ -188,7 +188,7 @@
             texliveFull
 
             # PDF utilities for validation
-            poppler_utils
+            poppler-utils
           ]
           ++ builtins.attrValues scriptPackages
           ++ preCommitCheck.enabledPackages;
