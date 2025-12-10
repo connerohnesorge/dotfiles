@@ -216,6 +216,10 @@ in
           dx.enable = true;
           ghostty.enable = true;
           zlaude.enable = true;
+          clds.enable = true;
+          cldk.enable = true;
+          cldo.enable = true;
+          cf.enable = true;
           klaude.enable = true;
           nvimf.enable = true;
           latest.enable = true;
