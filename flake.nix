@@ -7,10 +7,10 @@
     proton-authenticator.url = "github:connerohnesorge/proton-authenticator-flake?ref=0494e1b70724861b4f8e2fb314b744e0591dfbb5";
     proton-authenticator.inputs.nixpkgs.follows = "nixpkgs";
 
-    spectr.url = "github:connerohnesorge/spectr?ref=f76c63103dbce38cbd45aff9629dddcbc3a3ab33";
+    spectr.url = "github:connerohnesorge/spectr";
     spectr.inputs.nixpkgs.follows = "nixpkgs";
 
-    conclaude.url = "github:connix-io/conclaude";
+    conclaude.url = "github:connerohnesorge/conclaude";
     conclaude.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-ai-tools = {
