@@ -35,12 +35,12 @@ in
         ollama = {
           enable = true;
           loadModels = ["gpt-oss:20b"];
-          acceleration =
+          package =
             if myconfig.features.amd.enable
-            then "rocm"
+            then pkgs.ollama-rocm
             else if myconfig.features.nvidia.enable
-            then "cuda"
-            else null;
+            then pkgs.ollama-cuda
+            else pkgs.ollama-cpu;
         };
       };
     };
