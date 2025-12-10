@@ -35,6 +35,7 @@ in
           cldk.enable = true;
           cldo.enable = true;
           clds.enable = true;
+          latest.enable = true;
           ghostty.enable = true;
           dx.enable = true;
           cf.enable = true;
@@ -171,6 +172,10 @@ in
       programs = {
         tmux.enable = true;
         nix-ld.dev.enable = true;
+        nix-ld.libraries = with pkgs; [
+          stdenv.cc.cc.lib
+          zlib
+        ];
         direnv.enable = true;
         direnv.nix-direnv.enable = true;
         ssh = {
@@ -213,6 +218,7 @@ in
           zlaude.enable = true;
           klaude.enable = true;
           nvimf.enable = true;
+          latest.enable = true;
         };
       };
       environment = {
