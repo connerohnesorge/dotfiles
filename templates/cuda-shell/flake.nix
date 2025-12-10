@@ -74,7 +74,7 @@
               pkgs.xorg.libXcursor
               pkgs.xorg.libXi
               pkgs.opencv4
-            ]}";
+            ]}:/run/opengl-driver/lib";
           };
 
           corePackages = with pkgs; [

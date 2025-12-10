@@ -36,3 +36,4 @@
 --ignore AGENTS.md
 --ignore .claude
 --ignore .crush
+--ignore result

@@ -39,11 +39,6 @@ stop:
   # Message to send when infinite mode is enabled
   infiniteMessage: "continue working on the task"
 
-  # Alternative to infinite mode - run for a specific number of rounds
-  # When set, Claude will continue for the specified number of rounds
-  rounds: null
-  # Example: rounds: 3
-
 # Pre-tool-use hook configuration - runs before tools are executed
 # All file protection rules are consolidated in this section
 preToolUse:
