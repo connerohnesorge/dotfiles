@@ -41,12 +41,12 @@ in
           iconTheme.package = pkgs.papirus-icon-theme;
           iconTheme.name = "Papirus";
 
-          # # Force dark theme preference for GTK3 applications
-          gtk3.extraConfig = {
-            Settings = ''
-              gtk-application-prefer-dark-theme=1
-            '';
-          };
+          # # # Force dark theme preference for GTK3 applications
+          # gtk3.extraConfig = {
+          #   Settings = ''
+          #     gtk-application-prefer-dark-theme=1
+          #   '';
+          # };
 
           # Force dark theme preference for GTK4 applications
           # gtk4.extraConfig = {
