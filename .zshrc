@@ -54,6 +54,7 @@ cf() {
         cd "$dir"
     fi
 }
+alias g='git'
 alias git-reset='git checkout main && git pull'
 
 # nvimfi is find all files ignoring .git
