@@ -10,7 +10,7 @@
     spectr.url = "github:connerohnesorge/spectr";
     spectr.inputs.nixpkgs.follows = "nixpkgs";
 
-    conclaude.url = "github:connerohnesorge/conclaude";
+    conclaude.url = "github:connerohnesorge/conclaude?ref=8cf5acab011b453d9762392f28e9a609b046670b";
     conclaude.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-ai-tools = {
@@ -71,6 +71,9 @@
 
     blink.url = "github:Saghen/blink.cmp";
     blink.inputs.nixpkgs.follows = "nixpkgs";
+
+    fff.url = "github:dmtrKovalenko/fff.nvim";
+    fff.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
