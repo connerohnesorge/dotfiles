@@ -96,6 +96,7 @@ in
             man-pages-posix
             man-db
             wezterm
+            libcaca
 
             # VCS
             git-lfs
@@ -158,6 +159,7 @@ in
             inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.blink.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.blink.packages."${pkgs.stdenv.hostPlatform.system}".blink-fuzzy-lib
+            inputs.fff.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.nix-auth.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.nix-version-search.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.spectr.packages."${pkgs.stdenv.hostPlatform.system}".default
