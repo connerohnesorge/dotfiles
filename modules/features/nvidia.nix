@@ -137,7 +137,8 @@ in
 
       environment = {
         systemPackages = with pkgs; [
-          nvtopPackages.intel
+          nvtopPackages.intel # TODO: Intel module
+          nvtopPackages.nvidia
         ];
         variables = {
           LIBVA_DRIVER_NAME = "nvidia";
