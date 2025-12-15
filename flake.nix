@@ -10,8 +10,11 @@
     spectr.url = "github:connerohnesorge/spectr";
     spectr.inputs.nixpkgs.follows = "nixpkgs";
 
-    conclaude.url = "github:connerohnesorge/conclaude?ref=8cf5acab011b453d9762392f28e9a609b046670b";
-    conclaude.inputs.nixpkgs.follows = "nixpkgs";
+    conclaude = {
+      url = "github:connerohnesorge/conclaude";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "crane";
+    };
 
     nix-ai-tools = {
       url = "github:numtide/nix-ai-tools";
@@ -72,8 +75,16 @@
     blink.url = "github:Saghen/blink.cmp";
     blink.inputs.nixpkgs.follows = "nixpkgs";
 
-    fff.url = "github:dmtrKovalenko/fff.nvim";
-    fff.inputs.nixpkgs.follows = "nixpkgs";
+    fff = {
+      url = "github:dmtrKovalenko/fff.nvim";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        crane.follows = "crane";
+      };
+    };
+
+    crane.url = "github:ipetkov/crane";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -100,6 +111,12 @@
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
+    };
+
+    # Used for shell.nix
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
     };
   };
 
