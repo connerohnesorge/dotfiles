@@ -168,6 +168,7 @@ in
           EDITOR = "nvim";
           VISUAL = "nvim";
           GIT_EDITOR = "nvim";
+          MANPAGER = "nvim +Man!";
         };
       };
 
@@ -266,6 +267,7 @@ in
           EDITOR = "nvim";
           VISUAL = "nvim";
           GIT_EDITOR = "nvim";
+          MANPAGER = "nvim +Man!";
         };
       };
     };
