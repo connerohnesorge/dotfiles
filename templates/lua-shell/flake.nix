@@ -73,6 +73,7 @@
           projectRootFile = "flake.nix";
           programs = {
             alejandra.enable = true; # Nix formatter
+            stylua.enable = true; # Lua formatter
           };
         };
       in
