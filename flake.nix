@@ -10,6 +10,9 @@
     spectr.url = "github:connerohnesorge/spectr";
     spectr.inputs.nixpkgs.follows = "nixpkgs";
 
+    ovim.url = "github:connerohnesorge/ovim?ref=2cad976dc4b5b7ae59726053d2b0b67b2b655ec2";
+    ovim.inputs.nixpkgs.follows = "nixpkgs";
+
     conclaude = {
       url = "github:connerohnesorge/conclaude";
       inputs.nixpkgs.follows = "nixpkgs";

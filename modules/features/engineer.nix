@@ -262,6 +262,7 @@ in
           inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".crush
           inputs.conclaude.packages."${pkgs.stdenv.hostPlatform.system}".default
           inputs.spectr.packages."${pkgs.stdenv.hostPlatform.system}".default
+          inputs.ovim.packages."${pkgs.stdenv.hostPlatform.system}".default
         ];
         variables = {
           EDITOR = "nvim";
