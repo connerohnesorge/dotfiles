@@ -72,6 +72,7 @@ alias vim='nvim'
 alias v='nvim'
 alias os='spectr'
 alias osv='spectr validate --all --strict'
+alias kl='klaude'
 
 
 # Load a few important annexes, without Turbo

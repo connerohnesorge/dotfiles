@@ -166,6 +166,7 @@ in
 
       services = {
         gnome.gnome-keyring.enable = true;
+        desktopManager.gnome.enable = true;
         gvfs.enable = true; # Mount, trash, and other functionalities
         tumbler.enable = true; # Thumbnails
         dbus = {
@@ -175,7 +176,6 @@ in
         upower.enable = true;
         xserver = {
           enable = true;
-          desktopManager.gnome.enable = true;
         };
         displayManager.gdm = {
           enable = lib.mkDefault true;
