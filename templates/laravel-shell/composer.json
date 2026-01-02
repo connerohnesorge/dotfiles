@@ -1,0 +1,15 @@
+{
+    "name": "template/laravel-shell",
+    "description": "Laravel development shell template",
+    "type": "project",
+    "require": {
+        "php": "^8.4"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

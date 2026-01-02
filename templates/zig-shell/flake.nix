@@ -109,31 +109,32 @@
         '';
       };
 
-      packages = {
-        default = pkgs.stdenv.mkDerivation {
-          pname = "my-zig-project";
-          version = "0.0.1";
-          src = self;
-          nativeBuildInputs = [pkgs.zigpkgs.master];
-          buildPhase = ''
-            zig build
-          '';
-          installPhase = ''
-            mkdir -p $out/bin
-            # Copy built executables to $out/bin
-            # Adjust this based on your project structure
-            if [ -d "zig-out/bin" ]; then
-              cp -r zig-out/bin/* $out/bin/
-            fi
-          '';
-          meta = with pkgs.lib; {
-            description = "My Zig project";
-            homepage = "https://github.com/connerohnesorge/my-zig-project";
-            license = licenses.mit;
-            maintainers = with maintainers; [connerohnesorge];
-          };
-        };
-      };
+      # Example package build (uncomment and customize for your project)
+      # packages = {
+      #   default = pkgs.stdenv.mkDerivation {
+      #     pname = "my-zig-project";
+      #     version = "0.0.1";
+      #     src = ./.;  # Use ./. for your project source
+      #     nativeBuildInputs = [pkgs.zigpkgs.master];
+      #     buildPhase = ''
+      #       zig build
+      #     '';
+      #     installPhase = ''
+      #       mkdir -p $out/bin
+      #       # Copy built executables to $out/bin
+      #       # Adjust this based on your project structure
+      #       if [ -d "zig-out/bin" ]; then
+      #         cp -r zig-out/bin/* $out/bin/
+      #       fi
+      #     '';
+      #     meta = with pkgs.lib; {
+      #       description = "My Zig project";
+      #       homepage = "https://github.com/connerohnesorge/my-zig-project";
+      #       license = licenses.mit;
+      #       maintainers = with maintainers; [connerohnesorge];
+      #     };
+      #   };
+      # };
 
       formatter = treefmt-nix.lib.mkWrapper pkgs treefmtModule;
     });

@@ -16,24 +16,25 @@
 
       dotnet = pkgs.dotnet-sdk_8;
 
-      myApp = pkgs.buildDotnetModule rec {
-        pname = "my-csharp-app";
-        version = "1.0.0";
-
-        src = ./.;
-
-        projectFile = "src/MyApp.csproj";
-        nugetDeps = ./deps.json;
-
-        dotnet-sdk = dotnet;
-        dotnet-runtime = pkgs.dotnet-runtime_8;
-
-        executables = ["MyApp"];
-      };
+      # Example package build (uncomment and customize for your project)
+      # myApp = pkgs.buildDotnetModule rec {
+      #   pname = "my-csharp-app";
+      #   version = "1.0.0";
+      #
+      #   src = ./.;
+      #
+      #   projectFile = "src/MyApp.csproj";
+      #   nugetDeps = ./deps.json;
+      #
+      #   dotnet-sdk = dotnet;
+      #   dotnet-runtime = pkgs.dotnet-runtime_8;
+      #
+      #   executables = ["MyApp"];
+      # };
     in {
-      packages = {
-        default = myApp;
-      };
+      # packages = {
+      #   default = myApp;
+      # };
 
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
