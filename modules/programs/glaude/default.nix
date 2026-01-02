@@ -1,6 +1,3 @@
-/**
-Google Claude (local)
-*/
 {
   delib,
   pkgs,

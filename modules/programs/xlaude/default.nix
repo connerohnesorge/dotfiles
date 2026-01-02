@@ -1,6 +1,3 @@
-/**
-Z.AI Claude
-*/
 {
   delib,
   pkgs,

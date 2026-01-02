@@ -1,6 +1,3 @@
-/**
-Kimi K2 Claude
-*/
 {
   delib,
   pkgs,

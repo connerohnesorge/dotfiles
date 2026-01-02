@@ -88,7 +88,6 @@ in
             unixtools.xxd
             ffmpeg
             tree
-            fdtools
             stdenv.cc
             xdg-utils
             zip
