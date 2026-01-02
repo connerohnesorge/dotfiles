@@ -35,6 +35,7 @@ in
           cldk.enable = true;
           cldo.enable = true;
           clds.enable = true;
+          glaude.enable = true;
           latest.enable = true;
           ghostty.enable = true;
           dx.enable = true;
@@ -87,7 +88,6 @@ in
             unixtools.xxd
             ffmpeg
             tree
-            fdtools
             stdenv.cc
             xdg-utils
             zip
@@ -136,6 +136,9 @@ in
             doppler
             gh
             tea
+            gh-dash
+            radicle-tui
+            radicle-desktop
 
             # Emulation
             docker
@@ -155,6 +158,7 @@ in
             inputs.kiro-flake.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.conclaude.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".crush
+            inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".amp
             inputs.nordvpn.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.blink.packages."${pkgs.stdenv.hostPlatform.system}".default

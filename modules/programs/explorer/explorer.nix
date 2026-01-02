@@ -1,7 +1,3 @@
-# $HOME/.local/share/kactivitymanagerd/resources/database
-/*
-TODO: Add comment
-*/
 {
   delib,
   pkgs,
