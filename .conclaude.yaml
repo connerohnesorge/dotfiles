@@ -1,124 +1,159 @@
-# yaml-language-server: $schema=https://github.com/connix-io/conclaude/releases/latest/download/conclaude-schema.json
-# Conclaude YAML Configuration - Complete Default Configuration
-# This configuration defines how conclaude handles Claude Code hook events
-# All supported options are shown below with their default values
+# yaml-language-server: $schema=https://github.com/connerohnesorge/conclaude/releases/latest/download/conclaude-schema.json
+# Conclaude Configuration Template
+#
+# This is a minimal example configuration file.
+# For full documentation of all options, run: conclaude config --docs
+# Or see the generated documentation from `cargo doc --open`
 
-# Stop hook configuration - runs when Claude is about to stop
+# Stop hook - runs when Claude is about to stop
 stop:
-  # Structured command format with optional custom error messages
-  # Each command can have its own error message, and control output display
-  commands:
-    - run: "git add ."
-      showStdout: true
-      message: "Git add failed - please fix errors before continuing"
-    - run: "nix flake check"
-      showStdout: false
-      showStderr: true
-      message: "Nix flake check failed - please fix errors before continuing"
-  # Examples:
-  # commands:
-  #   - run: "echo 'Starting build...'"
-  #     showStdout: true    # User/Claude sees: "Starting build..."
-  #
-  #   - run: "npm test"
-  #     showStdout: true    # Show test results to user/Claude
-  #     showStderr: true    # Show test errors to user/Claude
-  #     message: "Tests failed - please fix failing tests before continuing"
-  #     maxOutputLines: 100 # Limit output to last 100 lines (1-10000)
-  #
-  #   - run: "npm run build"
-  #     showStderr: true    # Only show build errors to user/Claude, hide stdout
-  #     message: "Build failed - please fix compilation errors"
-  #     maxOutputLines: 50  # Limit build output to last 50 lines
+  commands: []
+  # Example:
+  # - run: "npm test"
+  #   showStdout: true
+  #   showStderr: true
+  #   showCommand: true  # Show "Executing command X/Y: npm test" (default: true)
+  #   message: "Tests failed"
+  #   maxOutputLines: 100
+  #   timeout: 300
 
-  # Infinite mode - allows Claude to continue automatically
-  # When enabled, Claude receives the infiniteMessage to continue working
-  # instead of ending the session after stop hook commands succeed
   infinite: false
-
-  # Message to send when infinite mode is enabled
   infiniteMessage: "continue working on the task"
 
-# Pre-tool-use hook configuration - runs before tools are executed
-# All file protection rules are consolidated in this section
+# Subagent stop hook - runs when subagents finish
+subagentStop:
+  commands: {}
+  # Example:
+  # coder:
+  #   - run: "npm run lint"
+  #     showStdout: true
+  #     showCommand: true  # Show "Executing command X/Y: npm run lint" (default: true)
+  #     message: "Linting failed"
+  # test*:
+  #   - run: "npm test"
+  #     showStderr: true
+  #     showCommand: false  # Hide the "Executing command..." line
+
+# Pre-tool-use hook - file protection and tool validation
 preToolUse:
-  # Prevent Claude from creating or modifying files at the repository root
-  # Helps maintain clean project structure
+  # Prevent files at repository root
   preventRootAdditions: true
+  # Custom message for root additions block (supports {file_path} and {tool} placeholders)
+  # Example: "Files must go in src/. Cannot create {file_path} using {tool}."
+  preventRootAdditionsMessage: null
 
-  # Files that Claude cannot edit, using glob patterns
-  # Supports various glob patterns for flexible file protection
-  # By default, conclaude's own config files are protected to prevent the AI
-  # from modifying guardrail settings - this is a security best practice
+  # Protected files (glob patterns)
   uneditableFiles:
-    - ".conclaude.yml" # Protect conclaude config from AI modification
-    - ".conclaude.yaml" # Alternative config extension
-  # Additional examples:
-  # uneditableFiles:
-  #   - "./package.json"      # specific file
-  #   - "*.md"                # file extension
-  #   - "src/**/*.ts"         # nested patterns
-  #   - ".env*"               # environment files
-  #   - "docs/**"             # entire directories
-  #   - "{package,tsconfig}.json"  # multiple specific files
+    - ".conclaude.yml"
+    - ".conclaude.yaml"
+  # Examples:
+  # - "*.lock"
+  # - pattern: ".env*"
+  #   message: "Environment files contain secrets"
+  #
+  # Agent-specific protection examples (blocks specific subagents):
+  # - pattern: "spectr/changes/**/tasks.jsonc"
+  #   message: "Task files managed by orchestrator"
+  #   agent: "coder"  # Only blocks coder subagent
+  #
+  # - pattern: "src/**/*.test.ts"
+  #   message: "Test files managed by tester agent"
+  #   agent: "code*"  # Blocks coder, coder-v2, etc.
+  #
+  # - pattern: "docs/**"
+  #   agent: "*"  # Blocks all agents (same as omitting agent field)
 
-  # Prevent Claude from creating or modifying files that are git-ignored
-  # When enabled, files matching patterns in .gitignore will be protected
-  # Uses your existing .gitignore as the source of truth for file protection
+  # Prevent editing git-ignored files
   preventUpdateGitIgnored: false
 
-  # Tool usage validation rules - control which tools can be used on which files
-  # Allows fine-grained control over tool usage based on file patterns
+  # Tool usage rules
   toolUsageValidation: []
-  # Examples:
-  # toolUsageValidation:
-  #   - tool: "Write"
-  #     pattern: "**/*.js"
-  #     action: "allow"
-  #     message: "Writing to JavaScript files is allowed"
-  #   - tool: "*"
-  #     pattern: ".env*"
-  #     action: "block"
-  #     message: "Environment files cannot be modified"
-
-  # Directories where file additions are prevented (in addition to root)
-  # List of directory paths where new files cannot be created
-  preventAdditions: []
-  # Examples:
-  # preventAdditions:
-  #   - "dist"
-  #   - "build"
-  #   - "node_modules"
-
-  # Prevent editing of files with generation markers (enabled by default)
-  # Checks for common markers like "DO NOT EDIT", "Code generated by", etc.
-  preventGeneratedFileEdits: true
-
-  # Custom message when blocking file edits with generation markers
-  # Available placeholders: {file_path}, {marker}
-  generatedFileMessage: null
   # Example:
-  # generatedFileMessage: "Cannot modify {file_path} - it contains '{marker}' marker"
+  # - tool: "Write"
+  #   pattern: "**/*.js"
+  #   action: "allow"
+  # - tool: "Bash"
+  #   commandPattern: "git push --force*"
+  #   action: "block"
+  #   message: "Force push not allowed"
+  #
+  # Agent-scoped rules (only apply to specific agents):
+  # - tool: "Bash"
+  #   pattern: ""
+  #   commandPattern: "rm -rf *"
+  #   action: "block"
+  #   agent: "coder"
+  #   message: "Coder agent cannot run destructive rm commands"
+  # - tool: "Write"
+  #   pattern: "**/*.test.ts"
+  #   action: "block"
+  #   agent: "coder"
+  #   message: "Coder agent should not modify test files"
+  # - tool: "*"
+  #   pattern: "src/**"
+  #   action: "block"
+  #   agent: "test*"
+  #   message: "Test agents cannot modify source files"
+  #
+  # Agent pattern examples:
+  #   - agent: "coder"    # Exact match - only "coder" subagent
+  #   - agent: "test*"    # Glob pattern - matches "tester", "test-runner"
+  #   - agent: "*"        # Wildcard - matches all agents (default if omitted)
 
-# System notifications configuration
+  # Directories where additions are prevented
+  preventAdditions: []
+  # Example: ["dist", "build"]
+
+# System notifications
 notifications:
-  # Enable system notifications for hook execution
   enabled: false
-
-  # List of hook names that should trigger notifications
-  # Use ["*"] to receive notifications for all hooks
-  # Common hook names: "Stop", "PreToolUse", "PostToolUse", "SessionStart", "UserPromptSubmit", "Notification", "SubagentStop", "PreCompact"
-  hooks: []
-  # Examples:
-  # hooks: ["*"]                    # All hooks
-  # hooks: ["Stop", "PreToolUse"]   # Only specific hooks
-  # hooks: ["Stop"]                 # Only stop hook notifications
-
-  # Show error notifications (hook failures, system errors)
+  hooks: []  # ["*"] for all, or ["Stop", "PreToolUse"]
   showErrors: false
-
-  # Show success notifications (hook completion, successful operations)
   showSuccess: false
-
-  # Show system event notifications (session start/end, configuration loaded)
   showSystemEvents: true
+
+# Permission request hook - auto-approve/deny tools
+# Uncomment to enable:
+#
+# permissionRequest:
+#   default: deny  # "allow" or "deny"
+#   allow:
+#     - "Read"
+#     - "Glob"
+#     - "Grep"
+#     - "Edit"
+#     - "Write"
+#   deny:
+#     - "BashOutput"
+#     - "KillShell"
+
+# User prompt submit hook - context injection based on prompt patterns
+# Automatically prepends context when prompts match patterns
+# Uncomment to enable:
+#
+# userPromptSubmit:
+#   contextRules:
+#     # Pattern-based context injection
+#     - pattern: "sidebar"
+#       prompt: |
+#         Make sure to read @.claude/contexts/sidebar.md before proceeding.
+#
+#     # Multiple patterns with regex alternation
+#     - pattern: "auth|login|authentication"
+#       prompt: |
+#         Review the authentication patterns in @.claude/contexts/auth.md
+#
+#     # Case-insensitive matching (using regex flag)
+#     - pattern: "(?i)database|sql|query"
+#       prompt: |
+#         Follow the database conventions in @.claude/contexts/database.md
+#
+#     # Disable a rule temporarily
+#     - pattern: "test"
+#       prompt: "Run tests before proceeding"
+#       enabled: false
+#
+#     # Explicit case-insensitive flag
+#     - pattern: "api"
+#       prompt: "Check API documentation first"
+#       caseInsensitive: true

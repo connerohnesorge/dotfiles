@@ -1,78 +1,3 @@
-/**
-# Feature Module: Hyprland Desktop Environment
-
-## Description
-Complete Hyprland Wayland compositor setup with a modern, tiling window
-manager environment. Provides a full desktop experience with animations,
-effects, and extensive customization options for power users who prefer
-keyboard-driven workflows.
-
-## Platform Support
-- ✅ NixOS
-- ❌ Darwin (Wayland compositors are Linux-only)
-
-## What This Enables
-- **Hyprland**: Dynamic tiling Wayland compositor
-- **Terminal Emulators**: Ghostty, Kitty, Alacritty, Foot
-- **Application Launchers**: Rofi with plugins, Walker
-- **Status Bars**: Waybar with custom styling
-- **Notifications**: Dunst notification daemon
-- **Media Controls**: Audio/video control integration
-- **Screenshot Tools**: Grim, Slurp, Grimblast
-
-## Core Components
-### Window Management
-- Dynamic tiling with smooth animations
-- Multiple workspace support
-- Window rules and special workspaces
-- Picture-in-picture mode
-- Fullscreen and floating windows
-
-### Desktop Utilities
-- **hyprcursor**: Cursor theme support
-- **hyprpaper**: Wallpaper manager
-- **hyprsunset**: Blue light filter
-- **hyprnotify**: Native notifications
-
-### Terminal Emulators
-- Ghostty: Modern GPU-accelerated terminal
-- Kitty: Feature-rich terminal with images
-
-### Application Launcher (Rofi)
-- Application launcher
-- Window switcher
-- Power menu
-- Calculator plugin
-- Clipboard manager
-- Password manager integration
-
-### Media & Screen Tools
-- wl-clipboard: Wayland clipboard utilities
-- grim/slurp: Screenshot and region selection
-- grimblast: Screenshot wrapper with effects
-- playerctl: Media player control
-- pavucontrol: Audio control GUI
-
-## Display Protocols
-- Native Wayland support
-- XWayland for legacy X11 applications
-- UWSM: Universal Wayland Session Manager
-- GPU acceleration with EGL/GLES
-
-## Integration Points
-- Works with audio/bluetooth features
-- Integrates with engineer tools
-- Theme support via rice system
-- Hardware acceleration (AMD/NVIDIA)
-
-## Key Bindings
-Configured through Hyprland config with:
-- Super key as primary modifier
-- Vim-like navigation
-- Application shortcuts
-- Workspace management
-- Window manipulation
-*/
 {
   delib,
   pkgs,
@@ -146,13 +71,26 @@ in
       };
 
       programs = {
-        dconf.enable = true;
+        dconf = {
+          enable = true;
+          profiles.user.databases = [
+            {
+              settings."org/gnome/desktop/interface" = {
+                gtk-theme = "Adwaita";
+                icon-theme = "Flat-Remix-Red-Dark";
+                font-name = "Noto Sans Medium 11";
+                document-font-name = "Noto Sans Medium 11";
+                monospace-font-name = "Noto Sans Mono Medium 11";
+              };
+            }
+          ];
+        };
         ydotool.enable = true;
         hyprland = {
           package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
           portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
           enable = true;
-          withUWSM = true;
+          # withUWSM = true;
           xwayland.enable = true;
         };
       };
@@ -160,12 +98,14 @@ in
       security = {
         pam.services = {
           sddm.enableGnomeKeyring = true;
+          gdm-password.enableGnomeKeyring = true;
           gdm.enableGnomeKeyring = true;
         };
       };
 
       services = {
         gnome.gnome-keyring.enable = true;
+        desktopManager.gnome.enable = true;
         gvfs.enable = true; # Mount, trash, and other functionalities
         tumbler.enable = true; # Thumbnails
         dbus = {
@@ -175,7 +115,6 @@ in
         upower.enable = true;
         xserver = {
           enable = true;
-          desktopManager.gnome.enable = true;
         };
         displayManager.gdm = {
           enable = lib.mkDefault true;

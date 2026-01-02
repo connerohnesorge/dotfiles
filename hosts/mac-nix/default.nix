@@ -1,32 +1,3 @@
-/**
-# Host Configuration: mac-nix (Conner's MacBook Air)
-
-## Description
-Primary development machine configuration for macOS (Apple Silicon).
-This host runs nix-darwin for package management.
-
-## Host Type
-- Type: laptop
-- System: aarch64-darwin (Apple Silicon)
-- Rice: dark theme
-
-## Key Features
-- **Engineer role**: Development tools and environments
-- **macOS integration**: Native macOS apps (Aerospace, Raycast, Xcodes)
-- **Blink shell**: Terminal emulator with fuzzy search
-
-## Platform-specific Configurations
-### Darwin
-- Touch ID for sudo authentication
-- Custom dock and trackpad settings
-- Nix Apps integration in /Applications
-- Container support via gvproxy
-
-## Enabled Programs
-- dx: Flake.nix editor
-- catls: Ruby-based file browser
-- convert_img: Image conversion utility
-*/
 {
   delib,
   inputs,

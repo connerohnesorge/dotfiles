@@ -20,7 +20,7 @@
     };
 
     nix-ai-tools = {
-      url = "github:numtide/nix-ai-tools";
+      url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
