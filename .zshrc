@@ -44,6 +44,10 @@ fi
 eval "$(starship init zsh)"
 source <(carapace chmod zsh)
 
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
 # cfi is find all ignoring .git
 alias cfi='cd $(find . -type d -path "./.git" -prune -o -type d -not -path "*/\.*" -print | fzf --reverse --preview "ls --color {}")'
 # cf is find all - shell function wrapper for cf program
