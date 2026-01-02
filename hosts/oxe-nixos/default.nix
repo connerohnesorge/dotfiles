@@ -1,39 +1,3 @@
-/**
-# Host Configuration: oxe-nixos
-
-## Description
-Server/workstation configuration running NixOS with full desktop capabilities.
-This host is configured as a server type but includes a complete Hyprland
-desktop environment for when GUI access is needed.
-
-## Host Type
-- Type: server
-- System: x86_64-linux
-- Rice: empty theme
-
-## Key Features
-- **Full desktop server**: Hyprland Wayland compositor
-- **AMD graphics**: Optimized for AMD GPUs
-- **Audio/Bluetooth**: Full multimedia support
-- **Development environment**: Engineer role enabled
-- **Privacy tools**: Darknet features enabled
-- **Secrets management**: Secure credential handling
-- **Ollama**: Go based AI LLM Runner
-
-## Hardware Support
-- AMD GPU drivers and optimizations
-- Hardware configuration imported from ./hardware.nix
-
-## System Configuration
-- Locale: en_US.UTF-8 (Chicago timezone)
-- RTKit for real-time audio
-- libinput for input device handling
-
-## Security
-- Determinate Systems hardening
-- Secrets management enabled
-- Limited boot history (4 generations)
-*/
 {
   delib,
   inputs,
