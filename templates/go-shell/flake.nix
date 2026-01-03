@@ -108,20 +108,21 @@
           ++ builtins.attrValues scriptPackages;
       };
 
-      packages = {
-        default = pkgs.buildGoModule {
-          pname = "my-go-project";
-          version = "0.0.1";
-          src = self;
-          vendorHash = null;
-          meta = with pkgs.lib; {
-            description = "My Go project";
-            homepage = "https://github.com/connerohnesorge/my-go-project";
-            license = licenses.asl20;
-            maintainers = with maintainers; [connerohnesorge];
-          };
-        };
-      };
+      # Example package build (uncomment and customize for your project)
+      # packages = {
+      #   default = pkgs.buildGoModule {
+      #     pname = "my-go-project";
+      #     version = "0.0.1";
+      #     src = ./.;  # Use ./. instead of self for your project source
+      #     vendorHash = null;  # Set to the hash of your go dependencies or use vendorHash = "sha256-AAAA..."; after first build
+      #     meta = with pkgs.lib; {
+      #       description = "My Go project";
+      #       homepage = "https://github.com/connerohnesorge/my-go-project";
+      #       license = licenses.asl20;
+      #       maintainers = with maintainers; [connerohnesorge];
+      #     };
+      #   };
+      # };
 
       formatter = treefmt-nix.lib.mkWrapper pkgs treefmtModule;
     });

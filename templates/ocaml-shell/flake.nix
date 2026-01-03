@@ -195,148 +195,149 @@
         '';
       };
 
-      packages = {
-        default = pkgs.ocamlPackages.buildDunePackage {
-          pname = "ocaml_template";
-          version = "0.1.0";
-          src = ./.;
-
-          # Runtime dependencies
-          propagatedBuildInputs = with pkgs.ocamlPackages; [
-            base
-            stdio
-            core
-            lwt
-            cmdliner
-            yojson
-            logs
-            fmt
-            ppx_jane
-            qcheck
-          ];
-
-          # Build dependencies
-          buildInputs = with pkgs.ocamlPackages; [
-            dune_3
-            findlib
-          ];
-
-          # Test dependencies
-          checkInputs = with pkgs.ocamlPackages; [
-            alcotest
-            alcotest-lwt
-            qcheck
-            ounit2
-          ];
-
-          # Disable tests for now to focus on build
-          doCheck = false;
-
-          # Override build phase to avoid --only-packages issue
-          buildPhase = ''
-            runHook preBuild
-            dune build --profile release lib bin examples @install
-            runHook postBuild
-          '';
-
-          meta = with pkgs.lib; {
-            description = "OCaml template project with modern tooling and best practices";
-            longDescription = ''
-              A comprehensive OCaml project template featuring:
-              - Modern library ecosystem (Base, Core, Lwt)
-              - Command-line interface with Cmdliner
-              - JSON handling with Yojson
-              - Comprehensive testing with Alcotest and QCheck
-              - Async programming examples
-              - Structured logging
-              - Documentation with ODocs
-            '';
-            homepage = "https://github.com/user/ocaml-template";
-            changelog = "https://github.com/user/ocaml-template/blob/main/CHANGELOG.md";
-            license = licenses.mit;
-            maintainers = with maintainers; [
-              /*
-              Add your maintainer info
-              */
-            ];
-            platforms = platforms.unix;
-          };
-        };
-
-        # Additional build targets
-        lib = pkgs.ocamlPackages.buildDunePackage {
-          pname = "ocaml-template-lib";
-          version = "0.1.0";
-          src = ./.;
-
-          # Only build the library, not the executable
-          buildPhase = ''
-            runHook preBuild
-            dune build lib/
-            runHook postBuild
-          '';
-
-          installPhase = ''
-            runHook preInstall
-            dune install --prefix=$out --libdir=$OCAMLFIND_DESTDIR lib
-            runHook postInstall
-          '';
-
-          propagatedBuildInputs = with pkgs.ocamlPackages; [
-            base
-            stdio
-            core
-            lwt
-            yojson
-            logs
-            ppx_jane
-          ];
-
-          doCheck = false; # Skip tests for lib-only build
-
-          meta = with pkgs.lib; {
-            description = "OCaml template library only";
-            license = licenses.mit;
-          };
-        };
-
-        examples = pkgs.ocamlPackages.buildDunePackage {
-          pname = "ocaml-template-examples";
-          version = "0.1.0";
-          src = ./.;
-
-          # Build library and examples
-          buildPhase = ''
-            runHook preBuild
-            dune build lib/ examples/
-            runHook postBuild
-          '';
-
-          installPhase = ''
-            runHook preInstall
-            dune install --prefix=$out --libdir=$OCAMLFIND_DESTDIR lib examples
-            runHook postInstall
-          '';
-
-          propagatedBuildInputs = with pkgs.ocamlPackages; [
-            base
-            stdio
-            core
-            lwt
-            yojson
-            logs
-            fmt
-            ppx_jane
-          ];
-
-          doCheck = false;
-
-          meta = with pkgs.lib; {
-            description = "OCaml template with examples";
-            license = licenses.mit;
-          };
-        };
-      };
+      # Example package builds (uncomment and customize for your project)
+      # packages = {
+      #   default = pkgs.ocamlPackages.buildDunePackage {
+      #     pname = "ocaml_template";
+      #     version = "0.1.0";
+      #     src = ./.;
+      #
+      #     # Runtime dependencies
+      #     propagatedBuildInputs = with pkgs.ocamlPackages; [
+      #       base
+      #       stdio
+      #       core
+      #       lwt
+      #       cmdliner
+      #       yojson
+      #       logs
+      #       fmt
+      #       ppx_jane
+      #       qcheck
+      #     ];
+      #
+      #     # Build dependencies
+      #     buildInputs = with pkgs.ocamlPackages; [
+      #       dune_3
+      #       findlib
+      #     ];
+      #
+      #     # Test dependencies
+      #     checkInputs = with pkgs.ocamlPackages; [
+      #       alcotest
+      #       alcotest-lwt
+      #       qcheck
+      #       ounit2
+      #     ];
+      #
+      #     # Disable tests for now to focus on build
+      #     doCheck = false;
+      #
+      #     # Override build phase to avoid --only-packages issue
+      #     buildPhase = ''
+      #       runHook preBuild
+      #       dune build --profile release lib bin examples @install
+      #       runHook postBuild
+      #     '';
+      #
+      #     meta = with pkgs.lib; {
+      #       description = "OCaml template project with modern tooling and best practices";
+      #       longDescription = ''
+      #         A comprehensive OCaml project template featuring:
+      #         - Modern library ecosystem (Base, Core, Lwt)
+      #         - Command-line interface with Cmdliner
+      #         - JSON handling with Yojson
+      #         - Comprehensive testing with Alcotest and QCheck
+      #         - Async programming examples
+      #         - Structured logging
+      #         - Documentation with ODocs
+      #       '';
+      #       homepage = "https://github.com/user/ocaml-template";
+      #       changelog = "https://github.com/user/ocaml-template/blob/main/CHANGELOG.md";
+      #       license = licenses.mit;
+      #       maintainers = with maintainers; [
+      #         /*
+      #         Add your maintainer info
+      #         */
+      #       ];
+      #       platforms = platforms.unix;
+      #     };
+      #   };
+      #
+      #   # Additional build targets
+      #   lib = pkgs.ocamlPackages.buildDunePackage {
+      #     pname = "ocaml-template-lib";
+      #     version = "0.1.0";
+      #     src = ./.;
+      #
+      #     # Only build the library, not the executable
+      #     buildPhase = ''
+      #       runHook preBuild
+      #       dune build lib/
+      #       runHook postBuild
+      #     '';
+      #
+      #     installPhase = ''
+      #       runHook preInstall
+      #       dune install --prefix=$out --libdir=$OCAMLFIND_DESTDIR lib
+      #       runHook postInstall
+      #     '';
+      #
+      #     propagatedBuildInputs = with pkgs.ocamlPackages; [
+      #       base
+      #       stdio
+      #       core
+      #       lwt
+      #       yojson
+      #       logs
+      #       ppx_jane
+      #     ];
+      #
+      #     doCheck = false; # Skip tests for lib-only build
+      #
+      #     meta = with pkgs.lib; {
+      #       description = "OCaml template library only";
+      #       license = licenses.mit;
+      #     };
+      #   };
+      #
+      #   examples = pkgs.ocamlPackages.buildDunePackage {
+      #     pname = "ocaml-template-examples";
+      #     version = "0.1.0";
+      #     src = ./.;
+      #
+      #     # Build library and examples
+      #     buildPhase = ''
+      #       runHook preBuild
+      #       dune build lib/ examples/
+      #       runHook postBuild
+      #     '';
+      #
+      #     installPhase = ''
+      #       runHook preInstall
+      #       dune install --prefix=$out --libdir=$OCAMLFIND_DESTDIR lib examples
+      #       runHook postInstall
+      #     '';
+      #
+      #     propagatedBuildInputs = with pkgs.ocamlPackages; [
+      #       base
+      #       stdio
+      #       core
+      #       lwt
+      #       yojson
+      #       logs
+      #       fmt
+      #       ppx_jane
+      #     ];
+      #
+      #     doCheck = false;
+      #
+      #     meta = with pkgs.lib; {
+      #       description = "OCaml template with examples";
+      #       license = licenses.mit;
+      #     };
+      #   };
+      # };
 
       formatter = treefmt-nix.lib.mkWrapper pkgs treefmtModule;
     });
