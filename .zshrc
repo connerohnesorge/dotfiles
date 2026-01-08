@@ -7,6 +7,9 @@ export ANTHROPIC_LOG=error
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$HOME/.cargo/bin:$PATH"
 export CLAUDE_CODE_ENABLE_TELEMETRY="0"
+export CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS=450000 # 450k
+export CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1
+
 path=(
     $HOME/.cargo/bin
     $BUN_INSTALL/bin
