@@ -2,11 +2,12 @@
   config,
   pkgs,
   lib,
+  username ? "connerohnesorge",
   ...
 }: {
   home = {
-    username = "connerohnesorge";
-    homeDirectory = "/home/connerohnesorge";
+    inherit username;
+    homeDirectory = "/Users/${username}";
 
     # You should not change this value, even if you update Home Manager. If you do
     # want to update the value, then make sure to first check the Home Manager
