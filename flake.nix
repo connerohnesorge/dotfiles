@@ -3,7 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    zen-browser.url = "github:connerohnesorge/zen-browser-flake";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    firefox-addons = {
+      url = "github:connerohnesorge/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     proton-authenticator.url = "github:connerohnesorge/proton-authenticator-flake?ref=0494e1b70724861b4f8e2fb314b744e0591dfbb5";
     proton-authenticator.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -141,7 +151,8 @@
       flake = let
         mkConfigurations = moduleSystem:
           denix.lib.configurations {
-            homeManagerUser = "connerohnesorge";
+            # homeManagerUser is set dynamically per-host via myconfig.host.username
+            # See modules/config/constants.nix and modules/config/home.nix
             inherit moduleSystem;
 
             paths = [./hosts ./modules ./rices];
