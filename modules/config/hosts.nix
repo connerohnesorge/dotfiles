@@ -32,6 +32,9 @@ delib.module {
       options =
         hostSubmoduleOptions
         // {
+          # Username for this host (allows different usernames per machine)
+          username = strOption "connerohnesorge";
+
           # Required: Host type classification
           type = noDefault (enumOption ["desktop" "server" "laptop"] null);
 

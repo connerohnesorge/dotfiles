@@ -28,14 +28,14 @@ in
           trusted-users = [
             "root"
             "@wheel" # All wheel group members
-            "connerohnesorge"
+            username
           ];
 
           # Users allowed to use Nix daemon
           allowed-users = [
             "root"
             "@wheel"
-            "connerohnesorge"
+            username
           ];
 
           # Binary cache configuration for faster builds
