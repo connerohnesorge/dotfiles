@@ -162,7 +162,6 @@ in
             inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".crush
             inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".amp
             inputs.nordvpn.packages."${pkgs.stdenv.hostPlatform.system}".default
-            inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.blink.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.blink.packages."${pkgs.stdenv.hostPlatform.system}".blink-fuzzy-lib
             inputs.fff.packages."${pkgs.stdenv.hostPlatform.system}".default
