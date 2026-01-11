@@ -32,6 +32,12 @@ delib.module {
       options =
         hostSubmoduleOptions
         // {
+          # Username for this host (allows different usernames per machine)
+          username = strOption "connerohnesorge";
+
+          # Home Manager user - defaults to username for multi-user support
+          homeManagerUser = strOption config.username;
+
           # Required: Host type classification
           type = noDefault (enumOption ["desktop" "server" "laptop"] null);
 

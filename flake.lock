@@ -355,6 +355,28 @@
         "type": "github"
       }
     },
+    "firefox-addons": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1768144062,
+        "narHash": "sha256-LSgAmBS9JKqQG3GitIScLxoLuA9egTrZMd3+LNz895E=",
+        "owner": "connerohnesorge",
+        "repo": "nur-expressions",
+        "rev": "63e65b8a46a8e9c953d49fb6da439f59a2304480",
+        "type": "github"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "connerohnesorge",
+        "repo": "nur-expressions",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -1662,39 +1684,6 @@
         "url": "https://github.com/NixOS/nixpkgs"
       }
     },
-    "nixpkgs_12": {
-      "locked": {
-        "lastModified": 1766840161,
-        "narHash": "sha256-Ss/LHpJJsng8vz1Pe33RSGIWUOcqM1fjrehjUkdrWio=",
-        "ref": "nixpkgs-unstable",
-        "rev": "3edc4a30ed3903fdf6f90c837f961fa6b49582d1",
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/NixOS/nixpkgs"
-      },
-      "original": {
-        "ref": "nixpkgs-unstable",
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/NixOS/nixpkgs"
-      }
-    },
-    "nixpkgs_12": {
-      "locked": {
-        "lastModified": 1758277210,
-        "narHash": "sha256-iCGWf/LTy+aY0zFu8q12lK8KuZp7yvdhStehhyX1v8w=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "8eaee110344796db060382e15d3af0a9fc396e0e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1754340878,
@@ -1991,6 +1980,7 @@
         "determinate": "determinate",
         "disko": "disko",
         "fff": "fff",
+        "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat_3",
         "flake-parts": "flake-parts_3",
         "flake-utils": "flake-utils_2",
@@ -2626,18 +2616,23 @@
     },
     "zen-browser": {
       "inputs": {
-        "nixpkgs": "nixpkgs_12"
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1767199027,
-        "narHash": "sha256-+WuVorK+k1OQHViJ/Pucbj/gvUoYVABJmXWmYPnON+4=",
-        "owner": "connerohnesorge",
+        "lastModified": 1768083628,
+        "narHash": "sha256-6M+vlMGur7UgzkHucgA61pjq3gtjGH9OywxJM/KHL8I=",
+        "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "64eb0272fa3b59685584df65b659e19a8ff3aadc",
+        "rev": "5c9624f3d0176727284678aebf677770dd1375b2",
         "type": "github"
       },
       "original": {
-        "owner": "connerohnesorge",
+        "owner": "0xc000022070",
         "repo": "zen-browser-flake",
         "type": "github"
       }

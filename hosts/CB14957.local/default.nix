@@ -9,7 +9,11 @@
   system = "aarch64-darwin";
 in
   delib.host {
-    name = "Conners-MacBook-Air";
+    name = "CB14957.local";
+
+    # Work machine username
+    username = "cohnesor";
+
     rice = "empty";
     type = "laptop";
 
@@ -56,7 +60,6 @@ in
         config.allowUnfree = true;
       };
       nix.enable = false;
-      # $ nix-env -qaP | grep wget
       programs = {
         direnv = {
           enable = true;

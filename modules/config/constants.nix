@@ -16,13 +16,19 @@ delib.module {
   name = "constants";
 
   options.constants = with delib; {
-    # Primary username for the system (used for account creation and home directory)
-    username = readOnly (strOption "connerohnesorge");
+    # Primary username for the system (derived from host configuration)
+    # This allows different usernames per machine (e.g., "connerohnesorge" locally, "cohnesor" at work)
+    username = strOption "connerohnesorge";
 
     # Full display name for the user (used in Git commits and system identification)
     userfullname = readOnly (strOption "Conner Ohnesorge");
 
     # Primary email address (used for Git commits, SSH keys, and notifications)
     useremail = readOnly (strOption "connerohnesorge@outlook.com");
+  };
+
+  # Derive username from host configuration
+  myconfig.always = {myconfig, ...}: {
+    constants.username = myconfig.host.username;
   };
 }

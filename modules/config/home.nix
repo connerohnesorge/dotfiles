@@ -18,6 +18,7 @@
 {
   delib,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (pkgs.stdenv) isDarwin isLinux;
@@ -28,6 +29,21 @@ in
     home.always = {myconfig, ...}: let
       inherit (myconfig.constants) username;
     in {
+      imports = [
+        inputs.zen-browser.homeModules.beta
+      ];
+
+      programs.zen-browser = {
+        enable = true;
+        profiles.default = {
+          isDefault = true;
+          extensions.packages = with pkgs.firefox-addons; [
+            surfingkeys
+            keeper-password-manager
+          ];
+        };
+      };
+
       # GTK theming configuration (Linux only)
       # Provides a consistent dark theme across GTK applications
       gtk =

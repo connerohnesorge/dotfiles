@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of connerohnesorge";
+  description = "Home Manager configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -17,17 +17,38 @@
     ...
   }: {
     homeConfigurations = {
-      # macOS configuration
+      # Personal macOS configuration
       "connerohnesorge@Conners-MacBook-Air.local" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Assuming M1/M2 Mac, use x86_64-darwin for Intel
+        pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+        extraSpecialArgs = {username = "connerohnesorge";};
         modules = [
           ./home-darwin.nix
         ];
       };
 
-      # Linux configuration
+      # Work macOS configuration
+      "cohnesor@CB14957.local" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+        extraSpecialArgs = {username = "cohnesor";};
+        modules = [
+          ./home-darwin.nix
+        ];
+      };
+
+      # Personal Linux configuration
       "connerohnesorge" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {username = "connerohnesorge";};
+        modules = [
+          stylix.homeManagerModules.stylix
+          ./home.nix
+        ];
+      };
+
+      # Work Linux configuration (if needed)
+      "cohnesor" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {username = "cohnesor";};
         modules = [
           stylix.homeManagerModules.stylix
           ./home.nix

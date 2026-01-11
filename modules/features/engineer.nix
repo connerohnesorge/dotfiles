@@ -9,20 +9,22 @@ in
   delib.module {
     name = "features.engineer";
 
-    nixos.always.imports = [
-      inputs.nix-ld.nixosModules.nix-ld
-      inputs.nordvpn.nixosModules.default
-      {
-        services.nordvpn = {
-          enable = true;
-          users = ["connerohnesorge"]; # Users to add to nordvpn group
-        };
-      }
-    ];
+    nixos.always = {myconfig, ...}: {
+      imports = [
+        inputs.nix-ld.nixosModules.nix-ld
+        inputs.nordvpn.nixosModules.default
+        {
+          services.nordvpn = {
+            enable = true;
+            users = [myconfig.constants.username];
+          };
+        }
+      ];
+    };
 
     options = singleEnableOption false;
 
-    nixos.ifEnabled = {
+    nixos.ifEnabled = {myconfig, ...}: {
       myconfig = {
         features = {
           zshell.enable = true;
@@ -160,7 +162,6 @@ in
             inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".crush
             inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".amp
             inputs.nordvpn.packages."${pkgs.stdenv.hostPlatform.system}".default
-            inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.blink.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.blink.packages."${pkgs.stdenv.hostPlatform.system}".blink-fuzzy-lib
             inputs.fff.packages."${pkgs.stdenv.hostPlatform.system}".default
@@ -199,7 +200,7 @@ in
           package = pkgs.nh;
           clean.enable = true;
           clean.extraArgs = "--keep-since 4d --keep 3";
-          flake = "/home/connerohnesorge/dotfiles";
+          flake = "/home/${myconfig.constants.username}/dotfiles";
         };
       };
 
