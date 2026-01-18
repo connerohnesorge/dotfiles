@@ -53,7 +53,16 @@ delib.module {
     # Import Stylix module for system-wide theming
     imports = [inputs.stylix.nixosModules.stylix];
 
+    # Apply firefox-addons overlay for zen-browser extensions
+    nixpkgs.overlays = [inputs.firefox-addons.overlays.default];
+
     # Validate that all referenced rice names exist in the rices directory
     assertions = delib.riceNamesAssertions myconfig.rices;
+  };
+
+  # Darwin configuration
+  darwin.always = {myconfig, ...}: {
+    # Apply firefox-addons overlay for zen-browser extensions
+    nixpkgs.overlays = [inputs.firefox-addons.overlays.default];
   };
 }
