@@ -32,10 +32,8 @@
     man
     cmake
     yq
-    graphite-cli
     lsof
     gdu
-    timewarrior # .local/share/timewarrior
     # Editor
     neovim
     tree-sitter

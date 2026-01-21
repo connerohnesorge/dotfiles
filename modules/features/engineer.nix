@@ -12,13 +12,6 @@ in
     nixos.always = {myconfig, ...}: {
       imports = [
         inputs.nix-ld.nixosModules.nix-ld
-        inputs.nordvpn.nixosModules.default
-        {
-          services.nordvpn = {
-            enable = true;
-            users = [myconfig.constants.username];
-          };
-        }
       ];
     };
 
@@ -108,17 +101,10 @@ in
             # Apps
             obsidian
             brave
-            spotify
             evince
-            discord
-            telegram-desktop
-            obs-studio
             eog
             nemo-with-extensions
-            google-chrome
             strace
-            altus
-            vlc
 
             # Communication
             tailscale
@@ -131,16 +117,12 @@ in
             usbutils
             ethtool
             curl
-            gimp
 
             # Platforms
             fh
             doppler
             gh
-            tea
             gh-dash
-            radicle-tui
-            radicle-desktop
 
             # Emulation
             docker
@@ -154,18 +136,14 @@ in
             statix
             nodejs
             lua-language-server
-            zed-editor
           ]
           ++ [
-            inputs.kiro-flake.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.conclaude.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".crush
             inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".amp
-            inputs.nordvpn.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.blink.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.blink.packages."${pkgs.stdenv.hostPlatform.system}".blink-fuzzy-lib
             inputs.fff.packages."${pkgs.stdenv.hostPlatform.system}".default
-            inputs.nix-auth.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.nix-version-search.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.spectr.packages."${pkgs.stdenv.hostPlatform.system}".default
           ];

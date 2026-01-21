@@ -61,6 +61,8 @@ in
       environment = {
         systemPackages = with pkgs; [
           nvtopPackages.full
+
+          gpu-screen-recorder
         ];
         variables = {
           LIBVA_DRIVER_NAME = "nvidia";

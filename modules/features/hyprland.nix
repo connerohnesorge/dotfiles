@@ -55,7 +55,6 @@ in
             swaynotificationcenter
             gnome-control-center
             hyprpicker
-            gpu-screen-recorder
             ffmpegthumbnailer
             pipewire
           ]);

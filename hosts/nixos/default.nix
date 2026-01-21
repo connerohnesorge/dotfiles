@@ -4,53 +4,37 @@
   ...
 }:
 delib.host {
-  name = "xps-nixos";
+  name = "nixos";
 
-  rice = "dark";
+  rice = "empty";
   type = "laptop";
-  home.home.stateVersion = "24.11";
+  home.home.stateVersion = "25.11";
 
   # This is just here to make the denix host module happy.
   # It evaluates each hosts: darwin, nixos, ... TODO: Improve comment.
   darwin = {
     imports = [
-      inputs.determinate.darwinModules.default
+      # inputs.determinate.darwinModules.default
     ];
-    nixpkgs.hostPlatform = "x86_64-darwin";
-    system.stateVersion = "24.11";
+    nixpkgs.hostPlatform = "aarch64-linux";
+    system.stateVersion = "25.11";
   };
 
   nixos = {
     imports = [
-      inputs.determinate.nixosModules.default
+      # inputs.determinate.nixosModules.default
     ];
 
     myconfig = {
       features = {
-        nvidia.enable = true;
-        power-efficient.enable = true;
-        audio.enable = true;
-        bluetooth.enable = true;
         hyprland.enable = true;
         engineer.enable = true;
-        darknet.enable = true;
-        secrets.enable = true;
-        student.enable = true;
-        # ollama.enable = true;
       };
-      programs = {
-        proton-x.enable = true;
-      };
+      programs = {};
     };
-    # environment.systemPackages = with pkgs; [
-    #
-    #         tea
-    #         radicle-tui
-    #         radicle-desktop
-    # ];
 
     nixpkgs.config.allowUnfree = true;
-    nixpkgs.hostPlatform = "x86_64-linux";
+    nixpkgs.hostPlatform = "aarch64-linux";
 
     boot = {
       plymouth.enable = true;
@@ -62,32 +46,19 @@ delib.host {
     };
 
     networking = {
-      hostName = "xps-nixos";
+      hostName = "nixos";
       networkmanager.enable = true;
-      defaultGateway = {
-        #   # address = "192.168.1.1";
-        #   # interface = "wlp0s20f3";
-        address = "192.168.1.19";
-        #   # interface = "enp0s13f0u3u1c2";
-        interface = "enp0s13f0u4c2";
-      };
     };
 
     hardware = {
       enableAllFirmware = true;
-      nvidia = {
-        prime = {
-          # Bus ID of the Intel GPU.
-          intelBusId = "PCI:0:2:0";
-          # Bus ID of the NVIDIA GPU.
-          nvidiaBusId = "PCI:1:0:0";
-        };
-      };
     };
+
     security = {
       rtkit.enable = true;
       pam.services.login.enableGnomeKeyring = true;
     };
+
     services = {
       ## Devices
       printing.enable = true;
