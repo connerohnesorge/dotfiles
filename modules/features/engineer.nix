@@ -92,6 +92,8 @@ in
             man-db
             wezterm
             libcaca
+            velero
+            awscli2
 
             # VCS
             git-lfs
@@ -99,8 +101,6 @@ in
             jujutsu
 
             # Apps
-            obsidian
-            brave
             evince
             eog
             nemo-with-extensions
