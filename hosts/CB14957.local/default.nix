@@ -12,7 +12,7 @@ in
     name = "CB14957.local";
 
     # Work machine username
-    username = "cohnesor";
+    username = "connerohnesorge";
 
     rice = "empty";
     type = "laptop";

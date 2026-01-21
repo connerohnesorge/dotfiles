@@ -22,6 +22,7 @@ in
           [
             inputs.ghostty.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.hyprland.packages."${pkgs.stdenv.hostPlatform.system}".default
+            inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
             (pkgs.rofi.override {
               plugins = [
                 pkgs.rofi-rbw

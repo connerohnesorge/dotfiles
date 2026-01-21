@@ -23,15 +23,15 @@ delib.host {
     boot.kernelModules = [];
     boot.extraModulePackages = [];
 
-    fileSystems."/" = {
-      device = "/dev/disk/by-uuid/701292d6-a4ea-41a3-93b1-e5562587eed6";
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/1775d191-55b1-4b21-9b2f-ac22e9e3529f";
       fsType = "ext4";
     };
 
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/8DD3-7D63";
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/7A1C-B2BD";
       fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
+      options = [ "fmask=0077" "dmask=0077" ];
     };
 
     swapDevices = [];
