@@ -18,7 +18,6 @@ in
       nix = {
         settings = {
           # Enable modern Nix features
-          lazy-trees = true;
           experimental-features = [
             "nix-command" # New nix CLI commands
             "flakes" # Nix flakes support
@@ -66,7 +65,6 @@ in
         settings = {
           # Performance optimizations
           max-jobs = 8; # Parallel build jobs
-          lazy-trees = true; # Lazy evaluation for better performance
 
           # Enable modern Nix features
           experimental-features = [
