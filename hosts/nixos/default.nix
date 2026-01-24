@@ -60,12 +60,18 @@ delib.host {
     };
 
     services = {
+      qemuGuest.enable = true;
       ## Devices
       printing.enable = true;
       libinput.enable = true;
       gnome.gnome-keyring.enable = true;
     };
 
+    virtualisation.docker.enable = true;
+    virtualisation.spiceUSBRedirection.enable = true;
+    services.spice-autorandr.enable = true;
+    services.spice-vdagentd.enable = true;
+    services.spice-webdavd.enable = true;
     time.timeZone = "America/Chicago";
     i18n = {
       # Select internationalisation properties.
