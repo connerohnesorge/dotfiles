@@ -96,7 +96,6 @@ zi load zsh-users/zsh-completions
 zi load zsh-users/zsh-syntax-highlighting
 zi load nix-community/nix-zsh-completions
 zi load Aloxaf/fzf-tab
-zi load jeffreytse/zsh-vi-mode
 zi load zpm-zsh/clipboard
 
 bindkey '^p' history-search-backward
