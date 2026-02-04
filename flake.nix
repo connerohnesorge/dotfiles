@@ -17,7 +17,7 @@
     proton-authenticator.url = "github:connerohnesorge/proton-authenticator-flake?ref=0494e1b70724861b4f8e2fb314b744e0591dfbb5";
     proton-authenticator.inputs.nixpkgs.follows = "nixpkgs";
 
-    spectr.url = "github:connerohnesorge/spectr";
+    spectr.url = "github:connerohnesorge/spectr/add-multi-repo-discovery";
     spectr.inputs.nixpkgs.follows = "nixpkgs";
 
     ovim.url = "github:connerohnesorge/ovim?ref=2cad976dc4b5b7ae59726053d2b0b67b2b655ec2";
