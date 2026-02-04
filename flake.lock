@@ -2112,15 +2112,16 @@
         "treefmt-nix": "treefmt-nix_6"
       },
       "locked": {
-        "lastModified": 1767825946,
-        "narHash": "sha256-ADJYgShRbiMpP9YrtM9ga2XIK5y9lHus+W/PSDr4/CE=",
+        "lastModified": 1769982282,
+        "narHash": "sha256-Q4CXOzIP2VbcuaN+50jAT6ATCGw92iPZ8oEZDa08oAA=",
         "owner": "connerohnesorge",
         "repo": "spectr",
-        "rev": "0f0ff22ded8fff83cae17825ac78c2500d387797",
+        "rev": "ed7510f3e7e66773e34238f34ea322b93c0e727a",
         "type": "github"
       },
       "original": {
         "owner": "connerohnesorge",
+        "ref": "add-multi-repo-discovery",
         "repo": "spectr",
         "type": "github"
       }
