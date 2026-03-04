@@ -82,7 +82,11 @@ alias vim='nvim'
 alias v='nvim'
 alias vf='nvimf'
 alias vfi='nvimfi'
-alias os='spectr'
+if command -v cnb &>/dev/null; then
+  alias os='cnb rocks'
+else
+  alias os='spectr'
+fi
 alias osv='spectr validate --all --strict'
 alias kl='klaude'
 
