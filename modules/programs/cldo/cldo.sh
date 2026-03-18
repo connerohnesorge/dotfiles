@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-claude --model=opus --dangerously-skip-permissions "$@"
+claude --model="opus[1m]" --dangerously-skip-permissions "$@"
