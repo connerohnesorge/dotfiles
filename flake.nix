@@ -23,6 +23,12 @@
     ovim.url = "github:connerohnesorge/ovim?ref=2cad976dc4b5b7ae59726053d2b0b67b2b655ec2";
     ovim.inputs.nixpkgs.follows = "nixpkgs";
 
+    constatus = {
+      url = "github:connerohnesorge/constatus";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "crane";
+    };
+
     conclaude = {
       url = "github:connerohnesorge/conclaude";
       inputs.nixpkgs.follows = "nixpkgs";

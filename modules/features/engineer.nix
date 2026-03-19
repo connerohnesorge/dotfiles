@@ -158,6 +158,7 @@ in
           ]
           ++ [
             inputs.kiro-flake.packages."${pkgs.stdenv.hostPlatform.system}".default
+            inputs.constatus.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.conclaude.packages."${pkgs.stdenv.hostPlatform.system}".default
             inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".crush
             inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".amp
@@ -266,6 +267,7 @@ in
           # Nix tools
           inputs.nix-auth.packages."${pkgs.stdenv.hostPlatform.system}".default
           inputs.nix-ai-tools.packages."${pkgs.stdenv.hostPlatform.system}".crush
+          inputs.constatus.packages."${pkgs.stdenv.hostPlatform.system}".default
           inputs.conclaude.packages."${pkgs.stdenv.hostPlatform.system}".default
           inputs.spectr.packages."${pkgs.stdenv.hostPlatform.system}".default
           inputs.ovim.packages."${pkgs.stdenv.hostPlatform.system}".default
