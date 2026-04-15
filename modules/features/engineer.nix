@@ -264,7 +264,7 @@ in
           inputs.constatus.packages."${pkgs.stdenv.hostPlatform.system}".default
           inputs.conclaude.packages."${pkgs.stdenv.hostPlatform.system}".default
           inputs.spectr.packages."${pkgs.stdenv.hostPlatform.system}".default
-          inputs.ovim.packages."${pkgs.stdenv.hostPlatform.system}".default
+          # inputs.ovim.packages."${pkgs.stdenv.hostPlatform.system}".default
         ];
         variables = {
           EDITOR = "nvim";

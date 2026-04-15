@@ -4,11 +4,15 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 export ANTHROPIC_LOG=error
+export CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS="1"
+export CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS=450000 # 450k
+export CLAUDE_CODE_DISABLE_TERMINAL_TITLE="1"
+export USE_API_CONTEXT_MANAGEMENT="0"
+export ANTHROPIC_BETAS=""
+export CLAUDE_CODE_ENABLE_TELEMETRY="0"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$HOME/.cargo/bin:$PATH"
 export CLAUDE_CODE_ENABLE_TELEMETRY="0"
-export CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS=450000 # 450k
-export CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1
 
 path=(
     $HOME/.cargo/bin
@@ -53,9 +57,14 @@ bindkey '^x^e' edit-command-line
 
 # cfi is find all ignoring .git
 alias cfi='cd $(find . -type d -path "./.git" -prune -o -type d -not -path "*/\.*" -print | fzf --reverse --preview "ls --color {}")'
+<<<<<<< HEAD
 alias cldo="claude --dangerously-skip-permissions --model='opus[1m]' $@"
 alias clds="claude --dangerously-skip-permissions --model=sonnet $@"
 alias cldk="claude --dangerously-skip-permissions --model=haiku $@"
+=======
+alias nvimf='~/dotfiles/modules/programs/nvimf/nvimf'
+alias nviml='~/dotfiles/modules/programs/nviml/'
+>>>>>>> f4c6eea (add python testing script title)
 # cf is find all - shell function wrapper for cf program
 cf() {
     local dir

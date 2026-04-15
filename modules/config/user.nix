@@ -4,11 +4,11 @@
   ...
 }: let
   keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKkl3bfwNy75UX9kAGk9WLMTVW0lKKZ8r4OV36VRcd42 connerohnesorge@xps-nixos"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKkl3bfwNy75UX9kAGk9WLMTVW0lKKZ8r4OV36VRcd42 cohnesor@xps-nixos"
   ];
 in
   delib.module {
-    name = "connerohnesorge";
+    name = "cohnesor";
 
     # macOS (Darwin) user configuration
     darwin.always = {myconfig, ...}: let
@@ -28,14 +28,22 @@ in
           trusted-users = [
             "root"
             "@wheel" # All wheel group members
+<<<<<<< HEAD
             username
+=======
+            "cohnesor"
+>>>>>>> f4c6eea (add python testing script title)
           ];
 
           # Users allowed to use Nix daemon
           allowed-users = [
             "root"
             "@wheel"
+<<<<<<< HEAD
             username
+=======
+            "cohnesor"
+>>>>>>> f4c6eea (add python testing script title)
           ];
 
           # Binary cache configuration for faster builds
@@ -175,12 +183,12 @@ in
       #       trusted-users = [
       #         "root"
       #         "@wheel"
-      #         "connerohnesorge"
+      #         "cohnesor"
       #       ];
       #       allowed-users = [
       #         "root"
       #         "@wheel"
-      #         "connerohnesorge"
+      #         "cohnesor"
       #       ];
       #     };
       # };
