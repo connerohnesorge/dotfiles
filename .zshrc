@@ -53,7 +53,7 @@ bindkey '^x^e' edit-command-line
 
 # cfi is find all ignoring .git
 alias cfi='cd $(find . -type d -path "./.git" -prune -o -type d -not -path "*/\.*" -print | fzf --reverse --preview "ls --color {}")'
-alias cldo="claude --dangerously-skip-permissions --model=opus $@"
+alias cldo="claude --dangerously-skip-permissions --model='opus[1m]' $@"
 alias clds="claude --dangerously-skip-permissions --model=sonnet $@"
 alias cldk="claude --dangerously-skip-permissions --model=haiku $@"
 # cf is find all - shell function wrapper for cf program
@@ -66,6 +66,9 @@ cf() {
 }
 alias g='git'
 alias git-reset='git checkout main && git pull'
+alias gr='git reset'
+alias gs='git status'
+alias gd='git diff'
 
 # nvimfi is find all files ignoring .git
 alias nvimfi='nvim "$(find . -type f -path "./.git" -prune -o -type f -not -path "*/\.*" -print | fzf --preview "bat --color=always {}")"'

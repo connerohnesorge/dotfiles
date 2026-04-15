@@ -33,6 +33,7 @@ in
             evince
             kdePackages.konsole
             wl-clip-persist
+            cliphist
             hyprcursor
             hyprkeys
             hyprpaper
