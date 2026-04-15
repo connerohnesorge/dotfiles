@@ -16,14 +16,9 @@ delib.module {
   name = "constants";
 
   options.constants = with delib; {
-<<<<<<< HEAD
     # Primary username for the system (derived from host configuration)
     # This allows different usernames per machine (e.g., "connerohnesorge" locally, "cohnesor" at work)
     username = strOption "connerohnesorge";
-=======
-    # Primary username for the system (used for account creation and home directory)
-    username = readOnly (strOption "cohnesor");
->>>>>>> f4c6eea (add python testing script title)
 
     # Full display name for the user (used in Git commits and system identification)
     userfullname = readOnly (strOption "Conner Ohnesorge");

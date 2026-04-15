@@ -4,15 +4,11 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 export ANTHROPIC_LOG=error
-export CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS="1"
-export CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS=450000 # 450k
-export CLAUDE_CODE_DISABLE_TERMINAL_TITLE="1"
-export USE_API_CONTEXT_MANAGEMENT="0"
-export ANTHROPIC_BETAS=""
 export CLAUDE_CODE_ENABLE_TELEMETRY="0"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$HOME/.cargo/bin:$PATH"
-export CLAUDE_CODE_ENABLE_TELEMETRY="0"
+export PATH="$HOME/.local/bin:$PATH"
+
 
 path=(
     $HOME/.cargo/bin
@@ -49,6 +45,7 @@ if command -v zoxide &>/dev/null && [[ "$CLAUDECODE" != "1" ]]; then
   fi
 fi
 eval "$(starship init zsh)"
+eval "$(direnv hook zsh)"
 source <(carapace chmod zsh)
 
 autoload -Uz edit-command-line
@@ -73,7 +70,7 @@ cf() {
 }
 alias g='git'
 alias git-reset='git checkout main && git pull'
-alias gr='git reset'
+alias gr='git-reset'
 alias gs='git status'
 alias gd='git diff'
 alias gsh='git stash'

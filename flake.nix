@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-<<<<<<< HEAD
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,13 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-=======
-    zen-browser.url = "github:connerohnesorge/zen-browser-flake";
-    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
-    zen-browser.inputs.home-manager.follows = "home-manager";
-    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
->>>>>>> f4c6eea (add python testing script title)
     proton-authenticator.url = "github:connerohnesorge/proton-authenticator-flake?ref=0494e1b70724861b4f8e2fb314b744e0591dfbb5";
     proton-authenticator.inputs.nixpkgs.follows = "nixpkgs";
 
