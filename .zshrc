@@ -57,14 +57,12 @@ bindkey '^x^e' edit-command-line
 
 # cfi is find all ignoring .git
 alias cfi='cd $(find . -type d -path "./.git" -prune -o -type d -not -path "*/\.*" -print | fzf --reverse --preview "ls --color {}")'
-<<<<<<< HEAD
 alias cldo="claude --dangerously-skip-permissions --model='opus[1m]' $@"
 alias clds="claude --dangerously-skip-permissions --model=sonnet $@"
 alias cldk="claude --dangerously-skip-permissions --model=haiku $@"
-=======
 alias nvimf='~/dotfiles/modules/programs/nvimf/nvimf'
 alias nviml='~/dotfiles/modules/programs/nviml/'
->>>>>>> f4c6eea (add python testing script title)
+alias v='nvim $@'
 # cf is find all - shell function wrapper for cf program
 cf() {
     local dir
@@ -78,6 +76,8 @@ alias git-reset='git checkout main && git pull'
 alias gr='git reset'
 alias gs='git status'
 alias gd='git diff'
+alias gsh='git stash'
+alias gsp='git stash pop'
 
 # nvimfi is find all files ignoring .git
 alias nvimfi='nvim "$(find . -type f -path "./.git" -prune -o -type f -not -path "*/\.*" -print | fzf --preview "bat --color=always {}")"'
@@ -126,30 +126,8 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' list-colors "\$\{(s.:.)LS_COLORS\}"
 zstyle ':completion:*' menu no
 
-# bun completions
-[ -s "/home/connerohnesorge/.bun/_bun" ] && source "/home/connerohnesorge/.bun/_bun"
-
 # Key bindings for word-by-word navigation for auto-completion
 bindkey '^[[1;5C' forward-word      # Ctrl+Right - move forward one word
 bindkey '^[[1;5D' backward-word     # Ctrl+Left - move backward one word
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    export PATH="/Users/connerohnesorge/.config/herd-lite/bin:$PATH"
-    export PHP_INI_SCAN_DIR="/Users/connerohnesorge/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-fi
 source <(kubectl completion zsh)
-
-
-# Turso
-export PATH="$PATH:/home/connerohnesorge/.turso"
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# opencode
-export PATH=/home/connerohnesorge/.opencode/bin:$PATH
-
-
-# Added by CodeRabbit CLI installer
-export PATH="$HOME/.local/bin:$PATH"
