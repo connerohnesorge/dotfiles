@@ -1,0 +1,14 @@
+[project]
+name = "home-manager"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "litellm[proxy]>=1.81.0",
+]
+
+[tool.uv.workspace]
+members = [
+    "tmp",
+]
