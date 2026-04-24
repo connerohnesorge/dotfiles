@@ -18,6 +18,8 @@
 
     cnb.url = "git+https://software.cottinghambutler.com/pantheon/cnb";
     cnb.inputs.nixpkgs.follows = "nixpkgs";
+
+    catls.url = "github:connerohnesorge/catls";
   };
 
   outputs = inputs @ {
@@ -27,6 +29,7 @@
     direnv-instant,
     cnb,
     constatus,
+    catls,
     ...
   }: {
     homeConfigurations = {
@@ -59,6 +62,7 @@
             inherit direnv-instant;
             inherit constatus;
             inherit cnb;
+            inherit catls;
           };
           modules = [
             ./home-darwin.nix

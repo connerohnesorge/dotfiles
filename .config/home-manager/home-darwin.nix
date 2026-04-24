@@ -7,6 +7,7 @@
   direnv-instant,
   constatus,
   cnb,
+  catls,
   ...
 }: let
   ovimSrc = pkgs.fetchFromGitHub {
@@ -154,6 +155,7 @@ in {
       glow
       gh
       glab
+      natscli
       gcc
       ninja
       lazydocker
@@ -183,6 +185,9 @@ in {
       # llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".rtk
       llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".agent-browser
       constatus.packages.aarch64-darwin.default
+      catls.packages.aarch64-darwin.default
+      keycastr
+      sqlcmd
       ovimPkg
       cnb.packages.aarch64-darwin.default
       aerospace

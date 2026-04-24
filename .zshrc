@@ -3,11 +3,17 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
-export ANTHROPIC_LOG=error
 export CLAUDE_CODE_ENABLE_TELEMETRY="0"
 export BUN_INSTALL="$HOME/.bun"
+export ANTHROPIC_LOG=error
+export EDITOR=nvim
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PI_TELEMETRY=0
+export CNB_NO_UPDATE_NOTICE="1"
+# export CLAUDE_CODE_DISABLE_VIRTUAL_SCROLL="1"
+
+export GITLAB_URI=https://software.cottinghambutler.com
 
 
 path=(
@@ -50,13 +56,13 @@ source <(carapace chmod zsh)
 
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey '^x^e' edit-command-line
+bindkey '^X^X' edit-command-line
 
 # cfi is find all ignoring .git
 alias cfi='cd $(find . -type d -path "./.git" -prune -o -type d -not -path "*/\.*" -print | fzf --reverse --preview "ls --color {}")'
-alias cldo="claude --dangerously-skip-permissions --model='opus[1m]' $@"
-alias clds="claude --dangerously-skip-permissions --model=sonnet $@"
-alias cldk="claude --dangerously-skip-permissions --model=haiku $@"
+alias cldo="claude --dangerously-load-development-channels plugin:firepit@pantheon-skills --dangerously-skip-permissions --model='opus[1m]' $@"
+alias clds="claude --dangerously-load-development-channels plugin:firepit@pantheon-skills --dangerously-skip-permissions --model=sonnet $@"
+alias cldk="claude --dangerously-load-development-channels plugin:firepit@pantheon-skills --dangerously-skip-permissions --model=haiku $@"
 alias nvimf='~/dotfiles/modules/programs/nvimf/nvimf'
 alias nviml='~/dotfiles/modules/programs/nviml/'
 alias v='nvim $@'
@@ -93,10 +99,12 @@ alias vf='nvimf'
 alias vfi='nvimfi'
 if command -v cnb &>/dev/null; then
   alias os='cnb rocks'
+  alias osv='cnb rocks validate --all --strict'
+  export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
 else
   alias os='spectr'
+  alias osv='spectr validate --all --strict'
 fi
-alias osv='spectr validate --all --strict'
 alias kl='klaude'
 
 
