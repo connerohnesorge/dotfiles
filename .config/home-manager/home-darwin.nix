@@ -186,10 +186,11 @@ in {
       llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".agent-browser
       constatus.packages.aarch64-darwin.default
       catls.packages.aarch64-darwin.default
+      cnb.packages.aarch64-darwin.default
       keycastr
       sqlcmd
+      kubeseal
       ovimPkg
-      cnb.packages.aarch64-darwin.default
       aerospace
       karabiner-elements
       jankyborders

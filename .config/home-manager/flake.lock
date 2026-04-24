@@ -89,11 +89,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1776986444,
-        "narHash": "sha256-KzbcunihOwUv4Y5YQzxhchpig92oN3Y2xroLUcKO+Zo=",
+        "lastModified": 1777027628,
+        "narHash": "sha256-NjISbWN+/76+8Ov2XuzF/Nv/duK1AZej3zox6SoSeAg=",
         "ref": "refs/heads/main",
-        "rev": "f32e24854ad9538e9944db815c877848f35e50b3",
-        "revCount": 584,
+        "rev": "4e46a92baa30e16e21f31c37bc4e94fc9eca30d0",
+        "revCount": 588,
         "type": "git",
         "url": "https://software.cottinghambutler.com/pantheon/cnb"
       },

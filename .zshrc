@@ -56,7 +56,6 @@ source <(carapace chmod zsh)
 
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey '^X^X' edit-command-line
 
 # cfi is find all ignoring .git
 alias cfi='cd $(find . -type d -path "./.git" -prune -o -type d -not -path "*/\.*" -print | fzf --reverse --preview "ls --color {}")'
@@ -123,16 +122,18 @@ zi load Aloxaf/fzf-tab
 zi load jeffreytse/zsh-vi-mode
 zi load zpm-zsh/clipboard
 
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
+function zvm_after_init() {
+  bindkey '^X^X' edit-command-line
+  bindkey '^p' history-search-backward
+  bindkey '^n' history-search-forward
+  bindkey '^[[1;5C' forward-word
+  bindkey '^[[1;5D' backward-word
+}
 
 # Noncase-sensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' list-colors "\$\{(s.:.)LS_COLORS\}"
 zstyle ':completion:*' menu no
 
-# Key bindings for word-by-word navigation for auto-completion
-bindkey '^[[1;5C' forward-word      # Ctrl+Right - move forward one word
-bindkey '^[[1;5D' backward-word     # Ctrl+Left - move backward one word
 
 source <(kubectl completion zsh)
