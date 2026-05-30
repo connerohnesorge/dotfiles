@@ -19,6 +19,11 @@
     cnb.url = "git+https://software.cottinghambutler.com/pantheon/cnb";
     cnb.inputs.nixpkgs.follows = "nixpkgs";
 
+    swiftbar-grafana-alerts = {
+      url = "git+https://software.cottinghambutler.com/pantheon/swiftbar-grafana-alerts?ref=refs/merge-requests/1/head";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     catls.url = "github:connerohnesorge/catls";
   };
 
@@ -30,6 +35,7 @@
     cnb,
     constatus,
     catls,
+    swiftbar-grafana-alerts,
     ...
   }: {
     homeConfigurations = {
@@ -63,6 +69,7 @@
             inherit constatus;
             inherit cnb;
             inherit catls;
+            inherit swiftbar-grafana-alerts;
           };
           modules = [
             ./home-darwin.nix

@@ -3,9 +3,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    zig-overlay.url = "github:mitchellh/zig-overlay";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+    zig-overlay.url = "github:mitchellh/zig-overlay";
     zls = {
       url = "github:zigtools/zls";
       inputs.nixpkgs.follows = "nixpkgs";

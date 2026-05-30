@@ -3,7 +3,24 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
-export CLAUDE_CODE_ENABLE_TELEMETRY="0"
+# Claude Code OTel telemetry -> athens LGTM stack via otlp.lan.cnb.rocks proxy
+export CLAUDE_CODE_ENABLE_TELEMETRY="1"
+export OTEL_METRICS_EXPORTER="otlp"
+export OTEL_LOGS_EXPORTER="otlp"
+export OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://otlp.lan.cnb.rocks:443"
+export OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=cumulative
+# JWT-based auth via cnb (Dex). Wraps the `claude` CLI so the access token is
+# captured at each invocation; cnb auto-refreshes via the offline_access RT.
+# Token lifetime is ~24h — restart `claude` if a single session outlives it.
+claude() {
+  local tok
+  tok=$(cnb auth token 2>/dev/null) || { echo "run: cnb auth login" >&2; return 1; }
+  OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer $tok" command claude "$@"
+}
+export OTEL_RESOURCE_ATTRIBUTES="service.namespace=claude-code,service.name=cohnesor,deployment.environment=workstation,host.name=$(hostname -s)"
+export OTEL_METRIC_EXPORT_INTERVAL="60000"
+export OTEL_LOGS_EXPORT_INTERVAL="5000"
 export BUN_INSTALL="$HOME/.bun"
 export ANTHROPIC_LOG=error
 export EDITOR=nvim
@@ -11,10 +28,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PI_TELEMETRY=0
 export CNB_NO_UPDATE_NOTICE="1"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # export CLAUDE_CODE_DISABLE_VIRTUAL_SCROLL="1"
 
 export GITLAB_URI=https://software.cottinghambutler.com
-
 
 path=(
     $HOME/.cargo/bin
@@ -59,11 +76,15 @@ zle -N edit-command-line
 
 # cfi is find all ignoring .git
 alias cfi='cd $(find . -type d -path "./.git" -prune -o -type d -not -path "*/\.*" -print | fzf --reverse --preview "ls --color {}")'
-alias cldo="claude --dangerously-load-development-channels plugin:firepit@pantheon-skills --dangerously-skip-permissions --model='opus[1m]' $@"
-alias clds="claude --dangerously-load-development-channels plugin:firepit@pantheon-skills --dangerously-skip-permissions --model=sonnet $@"
-alias cldk="claude --dangerously-load-development-channels plugin:firepit@pantheon-skills --dangerously-skip-permissions --model=haiku $@"
+alias codex='codex --yolo'
+alias cclds="claude --dangerously-load-development-channels plugin:firepit@pantheon-skills --dangerously-skip-permissions --model=sonnet $@"
+alias ccldo="claude --effort=xhigh --dangerously-load-development-channels plugin:firepit@pantheon-skills --dangerously-skip-permissions --model='opus[1m]' $@"
+alias ccldk="claude --dangerously-load-development-channels plugin:firepit@pantheon-skills --dangerously-skip-permissions --model=haiku $@"
+alias cldo="claude --effort=max --dangerously-skip-permissions --model='opus[1m]' $@"
+alias clds="claude --dangerously-skip-permissions --model=sonnet $@"
+alias cldk="claude --dangerously-skip-permissions --model=haiku $@"
 alias nvimf='~/dotfiles/modules/programs/nvimf/nvimf'
-alias nviml='~/dotfiles/modules/programs/nviml/'
+alias nviml='~/dotfiles/modules/programs/nviml/nviml'
 alias v='nvim $@'
 # cf is find all - shell function wrapper for cf program
 cf() {
@@ -84,6 +105,8 @@ alias gsp='git stash pop'
 # nvimfi is find all files ignoring .git
 alias nvimfi='nvim "$(find . -type f -path "./.git" -prune -o -type f -not -path "*/\.*" -print | fzf --preview "bat --color=always {}")"'
 
+alias rfi='realpath "$(find . -type f -path "./.git" -prune -o -type f -not -path "*/\.*" -print | fzf --preview "bat --color=always {}")" | pbcopy'
+
 alias nxi='nix'
 alias wtr='git worktree remove'
 alias wtl='git worktree list'
@@ -92,6 +115,7 @@ alias wt='git worktree'
 alias wtd='git worktree remove'
 alias k='kubectl'
 alias nix-env='echo "panic: nix-env is disabled (#61)" >&2 && false'
+# alias pnpm='echo "panic: pnpm is unsupported, we use bun" >&2 && false'
 alias vim='nvim'
 alias v='nvim'
 alias vf='nvimf'
@@ -105,7 +129,6 @@ else
   alias osv='spectr validate --all --strict'
 fi
 alias kl='klaude'
-
 
 # Load a few important annexes, without Turbo
 zi light-mode for \
@@ -135,5 +158,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' list-colors "\$\{(s.:.)LS_COLORS\}"
 zstyle ':completion:*' menu no
 
-
 source <(kubectl completion zsh)
+
+# Added by Antigravity CLI installer
+export PATH="/Users/cohnesor/.local/bin:$PATH"

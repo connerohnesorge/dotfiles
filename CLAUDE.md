@@ -6,10 +6,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a NixOS/Home Manager dotfiles repository using the **Denix** framework for modular configuration management. It supports multiple platforms (NixOS, macOS via nix-darwin, Home Manager) with unified configuration.
 
-## Common Tools
-
-Use the nixos and context7 mcp for background info (both of these should be used atleast 3 times anytime you edit a nix file)
-
 ### Development Commands
 All commands should be run using `nix develop -c <command>` to ensure the proper shell environment is loaded.
 - `nix develop -c lint` - Run linting tools (statix, deadnix, nix flake check) (if on nixos, should run `nixos-rebuild build --flake .` for better results)

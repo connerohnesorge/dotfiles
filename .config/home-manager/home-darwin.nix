@@ -8,6 +8,7 @@
   constatus,
   cnb,
   catls,
+  swiftbar-grafana-alerts,
   ...
 }: let
   ovimSrc = pkgs.fetchFromGitHub {
@@ -35,7 +36,7 @@
       chmod -R +w $out
     '';
     outputHashMode = "recursive";
-    outputHash = "sha256-Y0kwN+vPJQdGnGDz7donO/X204ztr78IoqKlFVLwPu0=";
+    outputHash = "sha256-6GjutHdm/uDCnFT57DWHZ4G4VQCIa3CkU4WZ3saVF4c=";
   };
 
   ovimFrontend = pkgs.stdenv.mkDerivation {
@@ -79,6 +80,54 @@
     TAURI_KEY_PASSWORD = "";
     doCheck = false;
   };
+
+  pikoPkg = pkgs.buildGoModule {
+    pname = "piko";
+    version = "0.10.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "andydunstall";
+      repo = "piko";
+      rev = "v0.10.0";
+      hash = "sha256-fOdPtPeUKHw0e//PrvqvwhjGpYB4C7x0tGJckVRBEkQ=";
+    };
+    vendorHash = "sha256-fDhG1YeuoAw+wkrPRUONW0Sb/aPzwFDMmLadOefxVsw=";
+  };
+
+  # Honcho Python SDK (https://pypi.org/project/honcho-ai/) - runtime dep of honcho-cli.
+  # Not in nixpkgs, so packaged from PyPI here.
+  honcho-ai = pkgs.python3Packages.buildPythonPackage rec {
+    pname = "honcho-ai";
+    version = "2.1.2";
+    pyproject = true;
+    src = pkgs.fetchPypi {
+      pname = "honcho_ai";
+      inherit version;
+      hash = "sha256-8sAUY5MeGhbMQ5Z5DhsDh9WW+1641tyDDWq3QvhwEiQ=";
+    };
+    build-system = with pkgs.python3Packages; [setuptools wheel];
+    dependencies = with pkgs.python3Packages; [httpx pydantic typing-extensions];
+    pythonImportsCheck = ["honcho"];
+    doCheck = false;
+  };
+
+  # honcho-cli (https://pypi.org/project/honcho-cli/) - "A terminal for Honcho".
+  # Provides the `honcho` command. Not in nixpkgs, so packaged from PyPI here.
+  honcho-cli = pkgs.python3Packages.buildPythonApplication rec {
+    pname = "honcho-cli";
+    version = "0.1.0";
+    pyproject = true;
+    src = pkgs.fetchPypi {
+      pname = "honcho_cli";
+      inherit version;
+      hash = "sha256-kkYJvZAb6SGWvMHb1/qHzuumBQ5ZHf+Vxb9ouLy8BWg=";
+    };
+    build-system = [pkgs.python3Packages.hatchling];
+    dependencies =
+      (with pkgs.python3Packages; [typer rich httpx click])
+      ++ [honcho-ai];
+    pythonImportsCheck = ["honcho_cli"];
+    doCheck = false;
+  };
 in {
   imports = [
     direnv-instant.homeModules.direnv-instant
@@ -102,6 +151,9 @@ in {
       DISABLE_ERROR_REPORTING = "1";
       GITLAB_HOST = "https://software.cottinghambutler.com";
     };
+
+    file."Library/Application Support/SwiftBar/Plugins/grafana-alerts.30s.sh".source = "${swiftbar-grafana-alerts.packages.aarch64-darwin.default}/share/swiftbar-grafana-alerts/plugins/grafana-alerts.30s.sh";
+    file."Library/Application Support/SwiftBar/Plugins/firepit-messages.30s.sh".source = "${swiftbar-grafana-alerts.packages.aarch64-darwin.default}/share/swiftbar-grafana-alerts/plugins/firepit-messages.30s.sh";
 
     # You should not change this value, even if you update Home Manager. If you do
     # want to update the value, then make sure to first check the Home Manager
@@ -173,17 +225,28 @@ in {
         })
       clickhouse
       argo-workflows
+      omnictl
+      talosctl
+      tree-sitter
+      k9s
       tectonic
       natscli
       skopeo
       ffmpeg
       egctl
-      kargo
+      coreutils-prefixed
+      eza
+      azure-cli
+      # kargo
+      yq-go
+      trivy
       natscli
       sops
       python313Packages.huggingface-hub
       # llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".rtk
       llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".agent-browser
+      llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".hermes-agent
+      espeak-ng
       constatus.packages.aarch64-darwin.default
       catls.packages.aarch64-darwin.default
       cnb.packages.aarch64-darwin.default
@@ -192,9 +255,20 @@ in {
       kubeseal
       ovimPkg
       aerospace
+      swiftbar
       karabiner-elements
       jankyborders
       argocd
+      git-bug
+      terminal-notifier
+      pikoPkg
+      honcho-cli
+      snouty
+      krew
+
+      apple-sdk_15
+      libiconv
+      duti
     ];
   };
 
