@@ -23,8 +23,7 @@
             # my-overlay = final: prev: {
             #   my-package = prev.callPackage ./my-package { };
             # };
-            final.buildGoModule = prev.buildGo125Module;
-            buildGoModule = prev.buildGo125Module;
+            buildGoModule = prev.buildGo126Module;
           })
         ];
       };
@@ -89,7 +88,7 @@
             statix
             deadnix
 
-            go_1_25 # Go Tools
+            go_1_26 # Go Tools
             air
             golangci-lint
             gopls

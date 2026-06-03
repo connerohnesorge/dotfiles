@@ -10,6 +10,7 @@ export OTEL_LOGS_EXPORTER="otlp"
 export OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 export OTEL_EXPORTER_OTLP_ENDPOINT="https://otlp.lan.cnb.rocks:443"
 export OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=cumulative
+export NERVOUS_MCP_TOKEN="$(cnb auth token)"
 # JWT-based auth via cnb (Dex). Wraps the `claude` CLI so the access token is
 # captured at each invocation; cnb auto-refreshes via the offline_access RT.
 # Token lifetime is ~24h — restart `claude` if a single session outlives it.
@@ -31,14 +32,14 @@ export CNB_NO_UPDATE_NOTICE="1"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # export CLAUDE_CODE_DISABLE_VIRTUAL_SCROLL="1"
 
-export GITLAB_URI=https://software.cottinghambutler.com
+# export GITLAB_URI=https://software.cottinghambutler.com
 
 path=(
     $HOME/.cargo/bin
     $BUN_INSTALL/bin
     $path
 )
-export PATH=$PATH:$path
+export PATH
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000

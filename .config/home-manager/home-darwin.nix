@@ -246,6 +246,7 @@ in {
       # llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".rtk
       llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".agent-browser
       llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".hermes-agent
+      llm-agents.packages."${pkgs.stdenv.hostPlatform.system}".rtk
       espeak-ng
       constatus.packages.aarch64-darwin.default
       catls.packages.aarch64-darwin.default
